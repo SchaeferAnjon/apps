@@ -94,10 +94,10 @@ img { display: block; }
 .pill .plats .ico { width: 12px; height: 12px; }
 .cta .soon { display: inline-flex; align-items: center; height: 34px; padding: 0 15px; border-radius: 999px; border: 1px dashed var(--line-2); font-size: 13.5px; color: var(--text-3); }
 .cta .note { margin-left: auto; font-size: 12px; color: var(--text-3); white-space: nowrap; }
-.dlpop { position: absolute; left: 0; bottom: 44px; z-index: 5; display: none; width: 268px; padding: 12px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line-2); box-shadow: var(--pop-shadow); }
+.dlpop { position: absolute; left: 0; bottom: 44px; z-index: 5; display: none; width: 330px; padding: 12px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line-2); box-shadow: var(--pop-shadow); }
 .dlpop.on { display: block; }
 .dlpop .t { font-size: 12.5px; color: var(--text-2); margin: 0 2px 8px; }
-.dlpop .row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.dlpop .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .dlpop .row a { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 6px 8px; border-radius: 10px; background: var(--surface-2); font-size: 13px; font-weight: 500; }
 .dlpop .row a:hover { background: var(--surface-3); }
 .dlpop .row a .ico { width: 18px; height: 18px; }
@@ -320,7 +320,7 @@ const IC = { mc: "meetcaption.png", af: "askfree.png", gnw: "getnewword.png" };
 const GH = "https://github.com/SchaeferAnjon";
 // 下载链接先指向发布页，GitHub 接口回来后换成最新一版的文件（文件名带版本号，按结尾认）
 const URLS = {
-  mc: { site: "https://meetcaption.us-cloud.uk", win: `${GH}/meetcaption/releases/latest`, arm: `${GH}/meetcaption/releases/latest` },
+  mc: { site: "https://meetcaption.us-cloud.uk", win: `${GH}/meetcaption/releases/latest`, arm: `${GH}/meetcaption/releases/latest`, intel: `${GH}/meetcaption/releases/latest` },
   af: { gh: `${GH}/askfree`, mac: `${GH}/askfree/releases/latest` },
   gnw: {},
 };
@@ -347,7 +347,7 @@ const T = {
     "c.af": "按一个键说出问题，AI 看着你的屏幕回答。住在 Mac 菜单栏里。",
     "c.gnw": "框住外语词，马上出这句里的意思，一键记进 Anki。",
     "t.open": "开源", "b.dl": "下载", "b.site": "官网", "note.soon": "官网筹备中", "soon": "即将推出",
-    "dl.t": "选你的电脑", "dl.win": "Windows", "dl.arm": "Mac", "dl.winm": "Windows 10 / 11", "dl.armm": "Apple 芯片",
+    "dl.t": "选你的电脑", "dl.win": "Windows", "dl.arm": "Mac", "dl.intel": "Mac", "dl.winm": "Windows 10 / 11", "dl.armm": "Apple 芯片（M1 起）", "dl.intelm": "Intel 芯片",
     "by": "<b>SchaeferAnjon</b> 出品", "all": "全部软件", "here": "你在这里",
     "mc.live": "实时字幕", "mc.me": "我",
     "af.key": "你设的键", "af.listen": "在听", "af.rec": "识别中", "af.h": "问 AI",
@@ -374,7 +374,7 @@ const T = {
     "c.af": "Hold a key, ask out loud, and AI answers by looking at your screen. Lives in the Mac menu bar.",
     "c.gnw": "Box a foreign word to see what it means in this sentence, then send it to Anki in one click.",
     "t.open": "Open source", "b.dl": "Download", "b.site": "Website", "note.soon": "Website coming", "soon": "Coming soon",
-    "dl.t": "Pick your computer", "dl.win": "Windows", "dl.arm": "Mac", "dl.winm": "Windows 10 / 11", "dl.armm": "Apple silicon",
+    "dl.t": "Pick your computer", "dl.win": "Windows", "dl.arm": "Mac", "dl.intel": "Mac", "dl.winm": "Windows 10 / 11", "dl.armm": "Apple silicon", "dl.intelm": "Intel chip",
     "by": "Made by <b>SchaeferAnjon</b>", "all": "All apps", "here": "You are here",
     "mc.live": "Live captions", "mc.me": "Me",
     "af.key": "your key", "af.listen": "Listening", "af.rec": "Transcribing", "af.h": "Ask AI",
@@ -412,7 +412,8 @@ function cardHTML(a) {
   else if (a.id === "mc") cta = `<button class="pill dark" data-dl="mc">${svg("dl", "ico s")}${tr("b.dl")}</button>
        <div class="dlpop" id="pop-mc"><div class="t">${tr("dl.t")}</div><div class="row">
          <a href="${u.win}" data-f="win">${svg("win")}${tr("dl.win")}<small>${tr("dl.winm")}</small></a>
-         <a href="${u.arm}" data-f="arm">${svg("apple")}${tr("dl.arm")}<small>${tr("dl.armm")}</small></a></div></div>
+         <a href="${u.arm}" data-f="arm">${svg("apple")}${tr("dl.arm")}<small>${tr("dl.armm")}</small></a>
+         <a href="${u.intel}" data-f="intel">${svg("apple")}${tr("dl.intel")}<small>${tr("dl.intelm")}</small></a></div></div>
        <a class="pill" href="${u.site}" target="_blank" rel="noopener">${svg("site", "ico s")}${tr("b.site")}</a>`;
   else cta = `<a class="pill dark" href="${u.mac}" data-f="mac">${svg("dl", "ico s")}${tr("b.dl")}</a>
        <a class="pill" href="${u.gh}" target="_blank" rel="noopener">${svg("gh")}GitHub</a><span class="note">${tr("note.soon")}</span>`;
@@ -620,7 +621,7 @@ function startDemos() {
 
 renderText();
 startDemos();
-latest("mc", "meetcaption", { win: /\.exe$/, arm: /mac-arm64\.dmg$/ });
+latest("mc", "meetcaption", { win: /\.exe$/, arm: /mac-arm64\.dmg$/, intel: /mac-x64\.dmg$/ });
 latest("af", "askfree", { mac: /\.zip$/ });
 </script>
 </body>
