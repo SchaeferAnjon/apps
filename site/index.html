@@ -321,7 +321,7 @@ const GH = "https://github.com/SchaeferAnjon";
 // 下载链接先指向发布页，GitHub 接口回来后换成最新一版的文件（文件名带版本号，按结尾认）
 const URLS = {
   mc: { site: "https://meetcaption.us-cloud.uk", win: `${GH}/meetcaption/releases/latest`, arm: `${GH}/meetcaption/releases/latest`, intel: `${GH}/meetcaption/releases/latest` },
-  af: { gh: `${GH}/askfree`, mac: `${GH}/askfree/releases/latest` },
+  af: { site: "https://askfree.us-cloud.uk", gh: `${GH}/askfree`, mac: `${GH}/askfree/releases/latest` },
   gnw: {},
 };
 
@@ -416,7 +416,7 @@ function cardHTML(a) {
          <a href="${u.intel}" data-f="intel">${svg("apple")}${tr("dl.intel")}<small>${tr("dl.intelm")}</small></a></div></div>
        <a class="pill" href="${u.site}" target="_blank" rel="noopener">${svg("site", "ico s")}${tr("b.site")}</a>`;
   else cta = `<a class="pill dark" href="${u.mac}" data-f="mac">${svg("dl", "ico s")}${tr("b.dl")}</a>
-       <a class="pill" href="${u.gh}" target="_blank" rel="noopener">${svg("gh")}GitHub</a><span class="note">${tr("note.soon")}</span>`;
+       ${u.site ? `<a class="pill" href="${u.site}" target="_blank" rel="noopener">${svg("site", "ico s")}${tr("b.site")}</a>` : `<a class="pill" href="${u.gh}" target="_blank" rel="noopener">${svg("gh")}GitHub</a><span class="note">${tr("note.soon")}</span>`}`;
   return `<article class="app" id="app-${a.id}">
     <div class="stage ${a.id}-stage" id="st-${a.id}"></div>
     <div class="app-body">
