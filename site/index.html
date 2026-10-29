@@ -321,8 +321,8 @@ const GH = "https://github.com/SchaeferAnjon";
 // 下载链接先指向发布页，GitHub 接口回来后换成最新一版的文件（文件名带版本号，按结尾认）
 const URLS = {
   mc: { site: "https://meetcaption.us-cloud.uk", win: `${GH}/meetcaption/releases/latest`, arm: `${GH}/meetcaption/releases/latest`, intel: `${GH}/meetcaption/releases/latest` },
-  af: { site: "https://askfree.us-cloud.uk", gh: `${GH}/askfree`, mac: `${GH}/askfree/releases/latest` },
-  gnw: {},
+  af: { site: "https://askfree.us-cloud.uk", gh: `${GH}/askfree`, mac: `${GH}/askfree/releases/latest/download/AskFree.dmg` },
+  gnw: { site: "https://getnewword.us-cloud.uk", gh: `${GH}/GetNewWord`, mac: `${GH}/GetNewWord/releases/latest/download/GetNewWord.dmg` },
 };
 
 const T = {
@@ -385,7 +385,7 @@ const T = {
 const APPS = [
   { id: "mc", name: "MeetCaption", plats: ["win", "mac"] },
   { id: "af", name: "Ask Free", plats: ["mac"] },
-  { id: "gnw", name: "GetNewWord", plats: ["win", "mac"], soon: true },
+  { id: "gnw", name: "GetNewWord", plats: ["mac"] }, // Windows 版在做，发了再加 "win"
 ];
 
 /* 语言：#lang= > 上次选的 > 浏览器语言 */
@@ -622,7 +622,7 @@ function startDemos() {
 renderText();
 startDemos();
 latest("mc", "meetcaption", { win: /\.exe$/, arm: /mac-arm64\.dmg$/, intel: /mac-x64\.dmg$/ });
-latest("af", "askfree", { mac: /\.zip$/ });
+latest("af", "askfree", { mac: /^AskFree-[\d.]+\.dmg$/ });
 </script>
 </body>
 </html>
