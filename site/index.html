@@ -202,6 +202,17 @@ img { display: block; }
 .af-ans .a code { font: 10.5px/1.5 var(--mono); background: var(--surface-2); color: var(--text); padding: 1px 5px; border-radius: 4px; }
 
 /* ===== 演示：GetNewWord 框词出释义 ===== */
+/* Scholar Reader：一段原文，下面逐词出一段译文 */
+.sr-stage { background: var(--surface-2); }
+.sr-page { position: absolute; left: 14px; right: 14px; top: 14px; bottom: -10px; border-radius: 8px; background: var(--page); box-shadow: 0 1px 2px rgba(0,0,0,.06); padding: 15px 18px; }
+.sr-page .h { width: 42%; height: 10px; border-radius: 3px; background: var(--surface-3); margin-bottom: 13px; }
+.sr-p { margin: 0 0 11px; opacity: 0; transform: translateY(4px); transition: opacity .3s, transform .3s; }
+.sr-p.on { opacity: 1; transform: none; }
+.sr-p .en { font: 13.5px/1.45 Georgia, "Times New Roman", var(--serif); color: var(--text); }
+.sr-p .tr { margin-top: 3px; font-size: 12.5px; line-height: 1.5; color: var(--text-2); }
+.sr-p .tr span { opacity: 0; transition: opacity .25s; }
+.sr-p .tr span.on { opacity: 1; }
+.sr-tag { position: absolute; right: 22px; top: 22px; z-index: 4; height: 22px; padding: 0 8px; border-radius: 6px; background: var(--surface); border: 1px solid var(--line-2); box-shadow: var(--shadow); display: flex; align-items: center; font-size: 11px; color: var(--text-2); }
 .gnw-stage { background: var(--surface-2); }
 .gnw-page { position: absolute; left: 14px; right: 14px; top: 14px; bottom: -10px; border-radius: 8px; background: var(--page); box-shadow: 0 1px 2px rgba(0,0,0,.06); padding: 16px 18px; }
 .gnw-page .ln { height: 7px; border-radius: 3px; background: var(--page-line); margin: 0 0 9px; }
@@ -316,13 +327,15 @@ img { display: block; }
 </div></footer>
 
 <script>
-const IC = { mc: "meetcaption.png", af: "askfree.png", gnw: "getnewword.png" };
+const IC = { mc: "meetcaption.png", af: "askfree.png", gnw: "getnewword.png", sr: "scholarreader.png" };
 const GH = "https://github.com/SchaeferAnjon";
 // 下载链接先指向发布页，GitHub 接口回来后换成最新一版的文件（文件名带版本号，按结尾认）
 const URLS = {
   mc: { site: "https://meetcaption.us-cloud.uk", win: `${GH}/meetcaption/releases/latest`, arm: `${GH}/meetcaption/releases/latest`, intel: `${GH}/meetcaption/releases/latest` },
   af: { site: "https://askfree.us-cloud.uk", gh: `${GH}/askfree`, mac: `${GH}/askfree/releases/latest/download/AskFree.dmg` },
   gnw: { site: "https://getnewword.us-cloud.uk", gh: `${GH}/GetNewWord`, mac: `${GH}/GetNewWord/releases/latest/download/GetNewWord.dmg` },
+  // Scholar Reader 的源码、安装包和官网都在 scholar-reader-releases 这个仓库
+  sr: { site: "https://scholar-reader.us-cloud.uk", gh: `${GH}/scholar-reader-releases`, mac: `${GH}/scholar-reader-releases/releases/latest/download/ScholarReader-mac-arm64.dmg` },
 };
 
 const T = {
@@ -331,8 +344,8 @@ const T = {
     "nav.apps": "软件", "nav.about": "关于",
     "intro.k": "SchaeferAnjon 的软件 · 一个人做",
     "intro.h": "几个小软件，<br>各把一件事做好。",
-    "intro.p": "开会、读外文、对着屏幕想问一句时用得上。<br><b>发布了的都开源，不用注册账号。</b>",
-    "f1.b": "源码公开", "f1.t": "MeetCaption、Ask Free 和 GetNewWord 的源码都在 GitHub，GPL-3.0，可以自己编译。",
+    "intro.p": "开会、读外文、读论文、对着屏幕想问一句时用得上。<br><b>发布了的都开源，不用注册账号。</b>",
+    "f1.b": "源码公开", "f1.t": "MeetCaption、Ask Free、GetNewWord 和 Scholar Reader 的源码都在 GitHub，GPL-3.0，可以自己编译。",
     "f2.b": "不用注册账号", "f2.t": "下载打开就能用，不用在这里开账号。",
     "f3.b": "一个人维护", "f3.t": "写代码、回问题、发新版的是同一个人。",
     "ab.k": "关于", "ab.h": "做这些软件的人",
@@ -346,6 +359,7 @@ const T = {
     "c.mc": "开会和网课的实时双语字幕，60 种语言，还能帮你答题、写纪要和课堂笔记。",
     "c.af": "按一个键说出问题，AI 看着你的屏幕回答。住在 Mac 菜单栏里。",
     "c.gnw": "框住外语词，马上出这句里的意思，一键记进 Anki。",
+    "c.sr": "读英文论文：每段原文下面跟一段译文，问 AI 的回答带出处，还有一页速览。",
     "t.open": "开源", "b.dl": "下载", "b.site": "官网", "note.soon": "官网筹备中", "soon": "即将推出",
     "dl.t": "选你的电脑", "dl.win": "Windows", "dl.arm": "Mac", "dl.intel": "Mac", "dl.winm": "Windows 10 / 11", "dl.armm": "Apple 芯片", "dl.intelm": "Intel 芯片",
     "by": "<b>SchaeferAnjon</b> 出品", "all": "全部软件", "here": "你在这里",
@@ -358,8 +372,8 @@ const T = {
     "nav.apps": "Apps", "nav.about": "About",
     "intro.k": "Apps by SchaeferAnjon · made by one person",
     "intro.h": "A few small apps,<br>each doing one thing well.",
-    "intro.p": "For meetings, for reading in another language, for asking about what is on your screen.<br><b>Everything released is open source, and no account is needed.</b>",
-    "f1.b": "Open source", "f1.t": "MeetCaption, Ask Free and GetNewWord are on GitHub under GPL-3.0. Build them yourself if you like.",
+    "intro.p": "For meetings, for reading in another language, for reading papers, for asking about what is on your screen.<br><b>Everything released is open source, and no account is needed.</b>",
+    "f1.b": "Open source", "f1.t": "MeetCaption, Ask Free, GetNewWord and Scholar Reader are on GitHub under GPL-3.0. Build them yourself if you like.",
     "f2.b": "No sign-up needed", "f2.t": "Download, open, use. There is no account to create here.",
     "f3.b": "One maintainer", "f3.t": "The person who writes the code also answers the issues and ships updates.",
     "ab.k": "About", "ab.h": "Who makes these",
@@ -373,6 +387,7 @@ const T = {
     "c.mc": "Live bilingual captions for meetings and classes in 60 languages, plus AI answers, minutes and lecture notes.",
     "c.af": "Hold a key, ask out loud, and AI answers by looking at your screen. Lives in the Mac menu bar.",
     "c.gnw": "Box a foreign word to see what it means in this sentence, then send it to Anki in one click.",
+    "c.sr": "Read English papers with a translation under every paragraph, AI answers with sources and a one-page glance.",
     "t.open": "Open source", "b.dl": "Download", "b.site": "Website", "note.soon": "Website coming", "soon": "Coming soon",
     "dl.t": "Pick your computer", "dl.win": "Windows", "dl.arm": "Mac", "dl.intel": "Mac", "dl.winm": "Windows 10 / 11", "dl.armm": "Apple silicon", "dl.intelm": "Intel chip",
     "by": "Made by <b>SchaeferAnjon</b>", "all": "All apps", "here": "You are here",
@@ -386,6 +401,7 @@ const APPS = [
   { id: "mc", name: "MeetCaption", plats: ["win", "mac"] },
   { id: "af", name: "Ask Free", plats: ["mac"] },
   { id: "gnw", name: "GetNewWord", plats: ["mac"] }, // Windows 版在做，发了再加 "win"
+  { id: "sr", name: "Scholar Reader", plats: ["mac"] },
 ];
 
 /* 语言：#lang= > 上次选的 > 浏览器语言 */
@@ -614,15 +630,46 @@ async function demoGNW(gen) {
     pop.classList.remove("fly"); pop.style.transform = "";
   }
 }
+/* Scholar Reader：论文里的两段，每段原文下面逐词出译文 */
+const SR_A = [["We propose a simple method that needs no labeled data.", "我们提出一种不需要标注数据的简单方法。"], ["On three benchmarks it improves accuracy by 4.2 points.", "在三个基准上，准确率提高了 4.2 个点。"]];
+const SR_B = [["The ablation shows that each component matters.", "消融实验表明每个部分都起作用。"], ["Training takes six hours on a single GPU.", "在一块 GPU 上训练六个小时。"]];
+const SR_SETS = {
+  zh: [{ lp: "English · 中文", ps: SR_A }, { lp: "English · 中文", ps: SR_B }],
+  en: [
+    { lp: "English · 中文", ps: SR_A },
+    { lp: "English · Deutsch", ps: [[SR_B[0][0], "Die Ablation zeigt, dass jede Komponente zählt."], [SR_B[1][0], "Das Training dauert sechs Stunden auf einer GPU."]] },
+    { lp: "English · 日本語", ps: [[SR_A[0][0], "ラベル付きデータのいらない簡単な手法を提案する。"], [SR_A[1][0], "3 つのベンチマークで精度が 4.2 ポイント上がった。"]] },
+  ],
+};
+async function demoSR(gen) {
+  const st = document.getElementById("st-sr"); if (!st) return;
+  st.innerHTML = `<div class="sr-page"><div class="h"></div><div class="sr-p"><div class="en"></div><div class="tr"></div></div><div class="sr-p"><div class="en"></div><div class="tr"></div></div></div><div class="sr-tag"></div>`;
+  const W = mkRunner(st, gen);
+  const ps = [...st.querySelectorAll(".sr-p")], tag = st.querySelector(".sr-tag");
+  const sets = SR_SETS[LANG];
+  const fill = (s) => { tag.textContent = s.lp; ps.forEach((p, i) => { p.querySelector(".en").textContent = s.ps[i][0]; p.querySelector(".tr").innerHTML = splitWords(s.ps[i][1]).map(w => `<span>${w}</span>`).join(""); }); };
+  if (REDUCED) { fill(sets[0]); ps.forEach(p => { p.classList.add("on"); p.querySelectorAll(".tr span").forEach(x => x.classList.add("on")); }); return; }
+  for (let i = 0; ; i = (i + 1) % sets.length) {
+    ps.forEach(p => p.classList.remove("on")); await W(350);
+    fill(sets[i]);
+    for (const p of ps) {
+      p.classList.add("on"); await W(700);
+      for (const w of p.querySelectorAll(".tr span")) { w.classList.add("on"); await W(90); }
+      await W(500);
+    }
+    await W(2600);
+  }
+}
 function startDemos() {
   const g = ++GEN;
-  [demoMC, demoAF, demoGNW].forEach(f => f(g).catch(() => {}));
+  [demoMC, demoAF, demoGNW, demoSR].forEach(f => f(g).catch(() => {}));
 }
 
 renderText();
 startDemos();
 latest("mc", "meetcaption", { win: /\.exe$/, arm: /mac-arm64\.dmg$/, intel: /mac-x64\.dmg$/ });
 latest("af", "askfree", { mac: /^AskFree-[\d.]+\.dmg$/ });
+latest("sr", "scholar-reader-releases", { mac: /^ScholarReader-[\d.]+-mac-arm64\.dmg$/ });
 </script>
 </body>
 </html>
