@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SchaeferAnjon 的软件</title>
-<meta name="description" content="SchaeferAnjon 一个人做的几个小软件：MeetCaption、Ask Free、GetNewWord。">
+<meta name="description" content="SchaeferAnjon 一个人做的几个小软件：MeetCaption、Ask Free、GetNewWord、ParaRead。">
 <link rel="icon" href="meetcaption.png">
 <style>
 :root {
@@ -24,19 +24,17 @@
   --desk: linear-gradient(135deg, #e7ecf6 0%, #eef0f5 45%, #f3ece9 100%);
   --page: #ffffff; --page-line: #ececef;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-    --bg: #0f0f11; --surface: #161618; --surface-2: #1d1d20; --surface-3: #26262a;
-    --text: #f2f2f4; --text-2: #9a9aa0; --text-3: #6a6a70;
-    --line: rgba(255,255,255,.08); --line-2: rgba(255,255,255,.14);
-    --btn: #f2f2f4; --btn-text: #111113;
-    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
-    --pop-shadow: 0 2px 6px rgba(0,0,0,.4), 0 18px 40px rgba(0,0,0,.45);
-    --mc: #7176ff; --af: #6c9dff; --gnw: #7c86e6; --mark: #ff6369; --ok: #3fcf7f;
-    --desk: linear-gradient(135deg, #1d2230 0%, #1b1c22 50%, #241e1f 100%);
-    --page: #1b1b1e; --page-line: #2a2a2e;
-  }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0f0f11; --surface: #161618; --surface-2: #1d1d20; --surface-3: #26262a;
+  --text: #f2f2f4; --text-2: #9a9aa0; --text-3: #6a6a70;
+  --line: rgba(255,255,255,.08); --line-2: rgba(255,255,255,.14);
+  --btn: #f2f2f4; --btn-text: #111113;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+  --pop-shadow: 0 2px 6px rgba(0,0,0,.4), 0 18px 40px rgba(0,0,0,.45);
+  --mc: #7176ff; --af: #6c9dff; --gnw: #7c86e6; --mark: #ff6369; --ok: #3fcf7f;
+  --desk: linear-gradient(135deg, #1d2230 0%, #1b1c22 50%, #241e1f 100%);
+  --page: #1b1b1e; --page-line: #2a2a2e;
 }
 
 * { box-sizing: border-box; }
@@ -202,17 +200,17 @@ img { display: block; }
 .af-ans .a code { font: 10.5px/1.5 var(--mono); background: var(--surface-2); color: var(--text); padding: 1px 5px; border-radius: 4px; }
 
 /* ===== 演示：GetNewWord 框词出释义 ===== */
-/* Scholar Reader：一段原文，下面逐词出一段译文 */
-.sr-stage { background: var(--surface-2); }
-.sr-page { position: absolute; left: 14px; right: 14px; top: 14px; bottom: -10px; border-radius: 8px; background: var(--page); box-shadow: 0 1px 2px rgba(0,0,0,.06); padding: 15px 18px; }
-.sr-page .h { width: 42%; height: 10px; border-radius: 3px; background: var(--surface-3); margin-bottom: 13px; }
-.sr-p { margin: 0 0 11px; opacity: 0; transform: translateY(4px); transition: opacity .3s, transform .3s; }
-.sr-p.on { opacity: 1; transform: none; }
-.sr-p .en { font: 13.5px/1.45 Georgia, "Times New Roman", var(--serif); color: var(--text); }
-.sr-p .tr { margin-top: 3px; font-size: 12.5px; line-height: 1.5; color: var(--text-2); }
-.sr-p .tr span { opacity: 0; transition: opacity .25s; }
-.sr-p .tr span.on { opacity: 1; }
-.sr-tag { position: absolute; right: 22px; top: 22px; z-index: 4; height: 22px; padding: 0 8px; border-radius: 6px; background: var(--surface); border: 1px solid var(--line-2); box-shadow: var(--shadow); display: flex; align-items: center; font-size: 11px; color: var(--text-2); }
+/* ParaRead：一段原文，下面逐词出一段译文 */
+.pr-stage { background: var(--surface-2); }
+.pr-page { position: absolute; left: 14px; right: 14px; top: 14px; bottom: -10px; border-radius: 8px; background: var(--page); box-shadow: 0 1px 2px rgba(0,0,0,.06); padding: 15px 18px; }
+.pr-page .h { width: 42%; height: 10px; border-radius: 3px; background: var(--surface-3); margin-bottom: 13px; }
+.pr-p { margin: 0 0 11px; opacity: 0; transform: translateY(4px); transition: opacity .3s, transform .3s; }
+.pr-p.on { opacity: 1; transform: none; }
+.pr-p .en { font: 13.5px/1.45 Georgia, "Times New Roman", var(--serif); color: var(--text); }
+.pr-p .tr { margin-top: 3px; font-size: 12.5px; line-height: 1.5; color: var(--text-2); }
+.pr-p .tr span { opacity: 0; transition: opacity .25s; }
+.pr-p .tr span.on { opacity: 1; }
+.pr-tag { position: absolute; right: 22px; top: 22px; z-index: 4; height: 22px; padding: 0 8px; border-radius: 6px; background: var(--surface); border: 1px solid var(--line-2); box-shadow: var(--shadow); display: flex; align-items: center; font-size: 11px; color: var(--text-2); }
 .gnw-stage { background: var(--surface-2); }
 .gnw-page { position: absolute; left: 14px; right: 14px; top: 14px; bottom: -10px; border-radius: 8px; background: var(--page); box-shadow: 0 1px 2px rgba(0,0,0,.06); padding: 16px 18px; }
 .gnw-page .ln { height: 7px; border-radius: 3px; background: var(--page-line); margin: 0 0 9px; }
@@ -241,6 +239,88 @@ img { display: block; }
 .gnw-anki .sq { width: 10px; height: 8px; border: 1.5px solid var(--gnw); border-radius: 2px; }
 
 /* ===== 窄屏 ===== */
+
+/* ===== 新主页：方向 A「一天」 ===== */
+.day { margin-top: 4px; }
+.desk { position: relative; border-radius: 20px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); isolation: isolate; }
+.desk .wp { position: absolute; inset: 0; z-index: -2; opacity: 0; transition: opacity 1.4s ease; }
+.desk[data-t="mc"] .wp[data-w="mc"], .desk[data-t="gnw"] .wp[data-w="gnw"], .desk[data-t="pr"] .wp[data-w="pr"], .desk[data-t="af"] .wp[data-w="af"] { opacity: 1; }
+/* 墙纸跟着钟点走：上午偏冷、正午最亮、下午暖、傍晚带一点紫和橙 */
+.wp[data-w="mc"] { background: linear-gradient(160deg, #dbe7f8 0%, #edf2f9 55%, #f8f3ec 100%); }
+.wp[data-w="gnw"] { background: linear-gradient(160deg, #e6eef4 0%, #f5f6f2 60%, #f7f4e6 100%); }
+.wp[data-w="pr"] { background: linear-gradient(160deg, #f4eee2 0%, #f7f2e9 50%, #efe5d6 100%); }
+.wp[data-w="af"] { background: linear-gradient(160deg, #e7dff3 0%, #f4e5e6 55%, #f9e2cb 100%); }
+:root[data-theme="dark"] .wp[data-w="mc"] { background: linear-gradient(160deg, #18223a 0%, #1a1d27 55%, #221f1e 100%); }
+:root[data-theme="dark"] .wp[data-w="gnw"] { background: linear-gradient(160deg, #1b222b 0%, #20221f 60%, #25231a 100%); }
+:root[data-theme="dark"] .wp[data-w="pr"] { background: linear-gradient(160deg, #27221a 0%, #24201a 50%, #2a2218 100%); }
+:root[data-theme="dark"] .wp[data-w="af"] { background: linear-gradient(160deg, #221b33 0%, #2b1f26 55%, #35261a 100%); }
+/* 一团光从左上慢慢走到右下：太阳在走 */
+.desk .sun { position: absolute; z-index: -1; width: 560px; height: 560px; margin: -280px 0 0 -280px; border-radius: 50%; pointer-events: none; background: radial-gradient(closest-side, var(--sun, rgba(255,246,220,.95)), transparent); transition: left 1.8s cubic-bezier(.4,0,.2,1), top 1.8s cubic-bezier(.4,0,.2,1), opacity 1.4s; }
+:root[data-theme="dark"] .desk .sun { --sun: rgba(140,150,255,.16); }
+.desk[data-t="mc"] .sun { left: 8%; top: 4%; }
+.desk[data-t="gnw"] .sun { left: 36%; top: -6%; }
+.desk[data-t="pr"] .sun { left: 66%; top: 2%; }
+.desk[data-t="af"] .sun { left: 92%; top: 46%; --sun: rgba(255,214,170,.95); }
+:root[data-theme="dark"] .desk[data-t="af"] .sun { --sun: rgba(255,170,110,.16); }
+.menubar { display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 14px; font-size: 12.5px; color: var(--text); background: color-mix(in srgb, var(--surface) 50%, transparent); backdrop-filter: blur(20px) saturate(1.4); border-bottom: 1px solid var(--line); }
+.menubar .ico { width: 13px; height: 13px; }
+.menubar b { font-weight: 600; }
+.menubar .sp { flex: 1; }
+.menubar .day-n { color: var(--text-2); }
+.menubar .clock { font-variant-numeric: tabular-nums; font-weight: 500; }
+.deskbody { display: grid; grid-template-columns: minmax(0, 540px) minmax(0, 1fr); gap: 48px; align-items: center; padding: 40px 48px 92px; }
+.win { position: relative; height: 224px; border-radius: 14px; background: var(--surface); box-shadow: 0 0 0 1px var(--line-2), 0 2px 6px rgba(17,17,19,.08), 0 28px 60px -14px rgba(17,17,19,.30); }
+.win .stage { position: absolute; inset: 0; height: auto; border-radius: 14px; opacity: 0; transition: opacity .4s; pointer-events: none; }
+.win .stage.on { opacity: 1; pointer-events: auto; }
+.say > * { opacity: 0; transform: translateY(8px); transition: opacity .45s, transform .45s; }
+.say.in > * { opacity: 1; transform: none; }
+.say.in > :nth-child(2) { transition-delay: .06s; } .say.in > :nth-child(3) { transition-delay: .12s; } .say.in > :nth-child(4) { transition-delay: .18s; } .say.in > :nth-child(5) { transition-delay: .24s; }
+.when { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-2); }
+.when .num { font: 500 12px var(--mono); padding: 2px 7px; border-radius: 6px; color: var(--text); background: color-mix(in srgb, var(--surface) 70%, transparent); border: 1px solid var(--line); }
+.moment { margin: 12px 0 14px; font-family: var(--serif); font-weight: 700; font-size: 31px; line-height: 1.32; text-wrap: balance; }
+.who { display: flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 600; }
+.who img { width: 22px; height: 22px; border-radius: 5px; box-shadow: 0 0 0 1px var(--line); }
+.say .app-line, .btxt .app-line { margin: 6px 0 0; min-height: 0; max-width: 30em; }
+.say .tags, .btxt .tags { margin-top: 12px; }
+.say .tags li, .btxt .tags li { background: color-mix(in srgb, var(--surface) 60%, transparent); border: 1px solid var(--line); }
+.dock { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); display: flex; gap: 10px; padding: 7px 9px; border-radius: 17px; background: color-mix(in srgb, var(--surface) 46%, transparent); backdrop-filter: blur(20px) saturate(1.4); border: 1px solid var(--line-2); }
+.dock button { position: relative; border: 0; background: none; padding: 0; cursor: pointer; transition: transform .28s cubic-bezier(.3,1.6,.5,1); }
+.dock img { width: 36px; height: 36px; border-radius: 9px; box-shadow: 0 1px 3px rgba(0,0,0,.2); }
+.dock button:hover { transform: translateY(-3px) scale(1.06); }
+.dock button.on { transform: translateY(-7px); }
+.dock button.on::after { content: ""; position: absolute; left: 50%; bottom: -8px; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: var(--text-2); }
+.dock button .tip { position: absolute; left: 50%; bottom: 46px; transform: translateX(-50%); padding: 3px 8px; border-radius: 6px; background: var(--btn); color: var(--btn-text); font-size: 11.5px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .15s; }
+.dock button:hover .tip { opacity: 1; }
+/* 桌面下面一条时间线：四个钟点，当前这一格的细线慢慢走满 */
+.rail { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 16px; }
+.rail button { position: relative; display: flex; flex-direction: column; gap: 1px; text-align: left; border: 0; background: none; padding: 13px 4px 4px; cursor: pointer; color: var(--text-3); }
+.rail .bar { position: absolute; left: 0; right: 10px; top: 0; height: 2px; border-radius: 2px; background: var(--line-2); overflow: hidden; }
+.rail .bar i { display: block; width: 0; height: 100%; background: var(--text); }
+.rail .t { font: 12px var(--mono); font-variant-numeric: tabular-nums; }
+.rail .l { font-size: 14.5px; font-weight: 500; color: var(--text-2); }
+.rail button:hover .l, .rail button.on .l { color: var(--text); }
+.rail button.on .t { color: var(--text-2); }
+/* 全部软件：一行一个，给只想下载的人 */
+.list-h { display: flex; align-items: baseline; gap: 12px; margin: 52px 0 10px; }
+.list { border-top: 1px solid var(--line); }
+.lrow { display: grid; grid-template-columns: 40px minmax(150px, 210px) minmax(0, 1fr) auto; gap: 18px; align-items: center; padding: 15px 4px; border-bottom: 1px solid var(--line); }
+.lrow h3 { margin: 0; font-size: 16px; font-weight: 600; cursor: pointer; }
+.lrow h3:hover { text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--line-2); }
+.lrow .sub { font-size: 12.5px; color: var(--text-3); }
+.lrow p { margin: 0; font-size: 14px; color: var(--text-2); text-wrap: pretty; }
+.lrow .cta { padding-top: 0; }
+.lrow .dlpop { left: auto; right: 0; }
+#apps .facts { margin-top: 28px; padding-bottom: 40px; border-top: 0; }
+
+/* ===== 方向 B「一屏一个」：不用点，往下看 ===== */
+.bands { margin-top: 2px; }
+.band { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 560px); gap: 64px; align-items: center; padding: 46px 0; border-top: 1px solid var(--line); }
+.band:nth-child(even) .btxt { order: 2; }
+.band .bstage { padding: 8px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); }
+.band .moment { font-size: 34px; }
+body.dir-b .list-h, body.dir-b .list { display: none; }
+body.dir-b #apps .facts { margin-top: 0; padding-top: 24px; border-top: 1px solid var(--line); }
+
 @media (max-width: 1080px) {
   .nav .links { display: none; }
 }
@@ -261,7 +341,19 @@ img { display: block; }
 @media (max-width: 380px) {
   .cta .note { display: none; }
 }
+
+@media (max-width: 980px) {
+  .deskbody { grid-template-columns: 1fr; gap: 22px; padding: 22px 18px 88px; }
+  .moment, .band .moment { font-size: 25px; }
+  .rail .l { font-size: 13px; }
+  .lrow { grid-template-columns: 40px 1fr; gap: 6px 14px; padding: 16px 0; }
+  .lrow p, .lrow .cta { grid-column: 2; }
+  .lrow .dlpop { right: auto; left: -54px; }
+  .band { grid-template-columns: 1fr; gap: 22px; padding: 32px 0; }
+  .band:nth-child(even) .btxt { order: 0; }
+}
 @media (prefers-reduced-motion: reduce) {
+  .desk .wp, .desk .sun, .say > * { transition: none; }
   .af-cap.talk .wave i { animation: none; height: 10px; }
 }
 </style>
@@ -278,45 +370,27 @@ img { display: block; }
 
 <header class="nav"><div class="wrap in">
   <a class="brand" href="#"><span class="minis" id="minis"></span>SchaeferAnjon</a>
-  <nav class="links"><a href="#apps" data-i="nav.apps"></a><a href="#about" data-i="nav.about"></a></nav>
+  <nav class="links"><a href="#apps" data-i="nav.apps"></a></nav>
   <span class="sp"></span>
   <div class="seg"><button data-lang="zh">简</button><button data-lang="en">EN</button></div>
   <a class="gh" href="https://github.com/SchaeferAnjon" target="_blank" rel="noopener"><svg class="ico"><use href="#i-gh"/></svg><span>GitHub</span></a>
 </div></header>
 
 <main class="wrap">
-  <section class="intro">
+  <section class="intro" data-part="开头">
     <div><div class="kicker" data-i="intro.k"></div><h1 data-i="intro.h"></h1></div>
     <p data-i="intro.p"></p>
   </section>
 
-  <section id="apps">
-    <div class="apps" id="appgrid"></div>
-    <div class="facts">
+  <div id="stagearea"></div>
+
+  <section id="apps" data-part="全部软件">
+    <div class="list-h"><span class="kicker" data-i="list.k"></span></div>
+    <div class="list" id="applist"></div>
+    <div class="facts" data-part="三句话">
       <div><b data-i="f1.b"></b><span data-i="f1.t"></span></div>
       <div><b data-i="f2.b"></b><span data-i="f2.t"></span></div>
       <div><b data-i="f3.b"></b><span data-i="f3.t"></span></div>
-    </div>
-  </section>
-
-  <section class="about" id="about">
-    <div>
-      <div class="kicker" data-i="ab.k"></div>
-      <h2 data-i="ab.h"></h2>
-      <p data-i="ab.p1"></p>
-      <p data-i="ab.p2"></p>
-    </div>
-    <div>
-      <div class="kicker" style="margin:8px 0 12px" data-i="ab.wk"></div>
-      <ul class="ways">
-        <li><span class="n">1</span><span data-i="w1"></span></li>
-        <li><span class="n">2</span><span data-i="w2"></span></li>
-        <li><span class="n">3</span><span data-i="w3"></span></li>
-        <li><span class="n">4</span><span data-i="w4"></span></li>
-      </ul>
-      <div class="contact">
-        <a class="pill" href="https://github.com/SchaeferAnjon" target="_blank" rel="noopener"><svg class="ico"><use href="#i-gh"/></svg>github.com/SchaeferAnjon</a>
-      </div>
     </div>
   </section>
 </main>
@@ -327,15 +401,16 @@ img { display: block; }
 </div></footer>
 
 <script>
-const IC = { mc: "meetcaption.png", af: "askfree.png", gnw: "getnewword.png", sr: "scholarreader.png" };
+{ const mq = matchMedia("(prefers-color-scheme: dark)"), set = () => { document.documentElement.dataset.theme = mq.matches ? "dark" : "light"; }; set(); mq.addEventListener("change", set); }
+const IC = { mc: "meetcaption.png", af: "askfree.png", gnw: "getnewword.png", pr: "pararead.png" };
 const GH = "https://github.com/SchaeferAnjon";
 // 下载链接先指向发布页，GitHub 接口回来后换成最新一版的文件（文件名带版本号，按结尾认）
 const URLS = {
   mc: { site: "https://meetcaption.us-cloud.uk", win: `${GH}/meetcaption/releases/latest`, arm: `${GH}/meetcaption/releases/latest`, intel: `${GH}/meetcaption/releases/latest` },
   af: { site: "https://askfree.us-cloud.uk", gh: `${GH}/askfree`, mac: `${GH}/askfree/releases/latest/download/AskFree.dmg` },
   gnw: { site: "https://getnewword.us-cloud.uk", gh: `${GH}/GetNewWord`, mac: `${GH}/GetNewWord/releases/latest/download/GetNewWord.dmg` },
-  // Scholar Reader 的源码、安装包和官网都在 scholar-reader-releases 这个仓库
-  sr: { site: "https://scholar-reader.us-cloud.uk", gh: `${GH}/scholar-reader-releases`, mac: `${GH}/scholar-reader-releases/releases/latest/download/ScholarReader-mac-arm64.dmg` },
+  // ParaRead 的源码、安装包和官网都在 pararead 这个仓库
+  pr: { site: "https://pararead.us-cloud.uk", gh: `${GH}/pararead`, mac: `${GH}/pararead/releases/latest/download/ParaRead-mac-arm64.dmg` },
 };
 
 const T = {
@@ -345,7 +420,7 @@ const T = {
     "intro.k": "SchaeferAnjon 的软件 · 一个人做",
     "intro.h": "几个小软件，<br>各把一件事做好。",
     "intro.p": "开会、读外文、读论文、对着屏幕想问一句时用得上。<br><b>发布了的都开源，不用注册账号。</b>",
-    "f1.b": "源码公开", "f1.t": "MeetCaption、Ask Free、GetNewWord 和 Scholar Reader 的源码都在 GitHub，GPL-3.0，可以自己编译。",
+    "f1.b": "源码公开", "f1.t": "MeetCaption、Ask Free、GetNewWord 和 ParaRead 的源码都在 GitHub，GPL-3.0，可以自己编译。",
     "f2.b": "不用注册账号", "f2.t": "下载打开就能用，不用在这里开账号。",
     "f3.b": "一个人维护", "f3.t": "写代码、回问题、发新版的是同一个人。",
     "ab.k": "关于", "ab.h": "做这些软件的人",
@@ -359,12 +434,19 @@ const T = {
     "c.mc": "开会和网课的实时双语字幕，60 种语言，还能帮你答题、写纪要和课堂笔记。",
     "c.af": "按一个键说出问题，AI 看着你的屏幕回答。住在 Mac 菜单栏里。",
     "c.gnw": "框住外语词，马上出这句里的意思，一键记进 Anki。",
-    "c.sr": "读英文论文：每段原文下面跟一段译文，问 AI 的回答带出处，还有一页速览。",
+    "c.pr": "读英文论文：每段原文下面跟一段译文，问 AI 的回答带出处，还有一页速览。",
     "t.open": "开源", "b.dl": "下载", "b.site": "官网", "note.soon": "官网筹备中", "soon": "即将推出",
     "dl.t": "选你的电脑", "dl.win": "Windows", "dl.arm": "Mac", "dl.intel": "Mac", "dl.winm": "Windows 10 / 11", "dl.armm": "Apple 芯片", "dl.intelm": "Intel 芯片",
     "by": "<b>SchaeferAnjon</b> 出品", "all": "全部软件", "here": "你在这里",
     "mc.live": "实时字幕", "mc.me": "我",
     "af.key": "你设的键", "af.listen": "在听", "af.rec": "识别中", "af.h": "问 AI",
+    "list.k": "全部软件",
+    "day": "周三",
+    "t.mc": "开会", "t.gnw": "读外文", "t.pr": "读论文", "t.af": "想问一句",
+    "m.mc": "对方越说越快，<br>字幕替你接住。",
+    "m.gnw": "卡在一个词上，<br>框一下就知道。",
+    "m.pr": "一段话看了三遍，<br>译文就在下面。",
+    "m.af": "屏幕上蹦出个报错，<br>张嘴问一句就行。",
     "anki": "Anki · 今天",
   },
   en: {
@@ -373,7 +455,7 @@ const T = {
     "intro.k": "Apps by SchaeferAnjon · made by one person",
     "intro.h": "A few small apps,<br>each doing one thing well.",
     "intro.p": "For meetings, for reading in another language, for reading papers, for asking about what is on your screen.<br><b>Everything released is open source, and no account is needed.</b>",
-    "f1.b": "Open source", "f1.t": "MeetCaption, Ask Free, GetNewWord and Scholar Reader are on GitHub under GPL-3.0. Build them yourself if you like.",
+    "f1.b": "Open source", "f1.t": "MeetCaption, Ask Free, GetNewWord and ParaRead are on GitHub under GPL-3.0. Build them yourself if you like.",
     "f2.b": "No sign-up needed", "f2.t": "Download, open, use. There is no account to create here.",
     "f3.b": "One maintainer", "f3.t": "The person who writes the code also answers the issues and ships updates.",
     "ab.k": "About", "ab.h": "Who makes these",
@@ -387,12 +469,19 @@ const T = {
     "c.mc": "Live bilingual captions for meetings and classes in 60 languages, plus AI answers, minutes and lecture notes.",
     "c.af": "Hold a key, ask out loud, and AI answers by looking at your screen. Lives in the Mac menu bar.",
     "c.gnw": "Box a foreign word to see what it means in this sentence, then send it to Anki in one click.",
-    "c.sr": "Read English papers with a translation under every paragraph, AI answers with sources and a one-page glance.",
+    "c.pr": "Read English papers with a translation under every paragraph, AI answers with sources and a one-page glance.",
     "t.open": "Open source", "b.dl": "Download", "b.site": "Website", "note.soon": "Website coming", "soon": "Coming soon",
     "dl.t": "Pick your computer", "dl.win": "Windows", "dl.arm": "Mac", "dl.intel": "Mac", "dl.winm": "Windows 10 / 11", "dl.armm": "Apple silicon", "dl.intelm": "Intel chip",
     "by": "Made by <b>SchaeferAnjon</b>", "all": "All apps", "here": "You are here",
     "mc.live": "Live captions", "mc.me": "Me",
     "af.key": "your key", "af.listen": "Listening", "af.rec": "Transcribing", "af.h": "Ask AI",
+    "list.k": "All apps",
+    "day": "Wed",
+    "t.mc": "A meeting", "t.gnw": "Reading abroad", "t.pr": "A paper", "t.af": "A quick question",
+    "m.mc": "They talk faster and faster.<br>The captions keep up for you.",
+    "m.gnw": "Stuck on one word.<br>Box it and you know.",
+    "m.pr": "The same paragraph, three times.<br>The translation is right below.",
+    "m.af": "An error pops up on screen.<br>Just ask it out loud.",
     "anki": "Anki · today",
   },
 };
@@ -401,7 +490,7 @@ const APPS = [
   { id: "mc", name: "MeetCaption", plats: ["win", "mac"] },
   { id: "af", name: "Ask Free", plats: ["mac"] },
   { id: "gnw", name: "GetNewWord", plats: ["mac"] }, // Windows 版在做，发了再加 "win"
-  { id: "sr", name: "Scholar Reader", plats: ["mac"] },
+  { id: "pr", name: "ParaRead", plats: ["mac"] },
 ];
 
 /* 语言：#lang= > 上次选的 > 浏览器语言 */
@@ -419,29 +508,61 @@ function stripHTML(cur) {
     <span class="icons">${APPS.map(a => `<a class="${a.id === cur ? "cur" : ""}" href="${appLink(a)}" aria-label="${a.name}"><img src="${IC[a.id]}" alt=""><span class="tip">${a.name}${a.id === cur ? " · " + tr("here") : ""}</span></a>`).join("")}</span>`;
 }
 
-function cardHTML(a) {
+/* 新主页：一天里的四个时刻，按钟点排 */
+const DIR = "a";
+const ORDER = ["mc", "gnw", "pr", "af"];
+const TIME = { mc: "09:30", gnw: "11:05", pr: "14:20", af: "16:40" };
+const app = (id) => APPS.find(a => a.id === id);
+function tagsHTML(a) {
+  return a.plats.map(p => p === "mac" ? `<li>${svg("apple")}Mac</li>` : `<li>${svg("win")}Windows</li>`).join("") + `<li>${svg("code", "ico s")}${tr("t.open")} GPL-3.0</li>`;
+}
+function ctaHTML(a) {
   const u = URLS[a.id];
-  const plats = a.plats.map(p => p === "mac" ? `<li>${svg("apple")}Mac</li>` : `<li>${svg("win")}Windows</li>`).join("");
-  const tag = a.soon ? "" : `<li>${svg("code", "ico s")}${tr("t.open")} GPL-3.0</li>`;
-  let cta;
-  if (a.soon) cta = `<span class="soon">${tr("soon")}</span>`;
-  else if (a.id === "mc") cta = `<button class="pill dark" data-dl="mc">${svg("dl", "ico s")}${tr("b.dl")}</button>
-       <div class="dlpop" id="pop-mc"><div class="t">${tr("dl.t")}</div><div class="row">
+  if (a.id === "mc") return `<button class="pill dark" data-dl="mc">${svg("dl", "ico s")}${tr("b.dl")}</button>
+       <div class="dlpop"><div class="t">${tr("dl.t")}</div><div class="row">
          <a href="${u.win}" data-f="win">${svg("win")}${tr("dl.win")}<small>${tr("dl.winm")}</small></a>
          <a href="${u.arm}" data-f="arm">${svg("apple")}${tr("dl.arm")}<small>${tr("dl.armm")}</small></a>
          <a href="${u.intel}" data-f="intel">${svg("apple")}${tr("dl.intel")}<small>${tr("dl.intelm")}</small></a></div></div>
        <a class="pill" href="${u.site}" target="_blank" rel="noopener">${svg("site", "ico s")}${tr("b.site")}</a>`;
-  else cta = `<a class="pill dark" href="${u.mac}" data-f="mac">${svg("dl", "ico s")}${tr("b.dl")}</a>
-       ${u.site ? `<a class="pill" href="${u.site}" target="_blank" rel="noopener">${svg("site", "ico s")}${tr("b.site")}</a>` : `<a class="pill" href="${u.gh}" target="_blank" rel="noopener">${svg("gh")}GitHub</a><span class="note">${tr("note.soon")}</span>`}`;
-  return `<article class="app" id="app-${a.id}">
-    <div class="stage ${a.id}-stage" id="st-${a.id}"></div>
-    <div class="app-body">
-      <div class="app-head"><img class="app-ic" src="${IC[a.id]}" alt=""><div><h3>${a.name}</h3></div></div>
-      <p class="app-line">${tr("c." + a.id)}</p>
-      <div class="foot-g"><ul class="tags">${plats}${tag}</ul>
-      <div class="cta">${cta}</div></div>
+  return `<a class="pill dark" href="${u.mac}" data-f="mac">${svg("dl", "ico s")}${tr("b.dl")}</a>
+       <a class="pill" href="${u.site}" target="_blank" rel="noopener">${svg("site", "ico s")}${tr("b.site")}</a>`;
+}
+/* 这一刻：钟点、卡在哪、哪个软件接住、下载 */
+function sayHTML(a) {
+  return `<div class="when"><span class="num">${TIME[a.id]}</span><span>${tr("t." + a.id)}</span></div>
+    <h2 class="moment">${tr("m." + a.id)}</h2>
+    <div class="who"><img src="${IC[a.id]}" alt="">${a.name}</div>
+    <p class="app-line">${tr("c." + a.id)}</p>
+    <ul class="tags">${tagsHTML(a)}</ul>
+    <div class="cta">${ctaHTML(a)}</div>`;
+}
+function dayHTML() {
+  return `<section class="day" data-part="一天">
+    <div class="desk" id="desk" data-t="${ORDER[CUR]}">
+      ${ORDER.map(id => `<div class="wp" data-w="${id}"></div>`).join("")}<div class="sun"></div>
+      <div class="menubar">${svg("apple")}<b id="mb-app"></b><span class="sp"></span><span class="day-n">${tr("day")}</span><span class="clock" id="clock"></span></div>
+      <div class="deskbody">
+        <div class="win">${ORDER.map(id => `<div class="stage ${id}-stage" id="st-${id}"></div>`).join("")}</div>
+        <div class="say" id="say"></div>
+      </div>
+      <div class="dock" id="dock">${ORDER.map(id => `<button data-go="${id}" aria-label="${app(id).name}"><img src="${IC[id]}" alt=""><span class="tip">${app(id).name}</span></button>`).join("")}</div>
     </div>
-  </article>`;
+    <div class="rail" id="rail" role="tablist">${ORDER.map(id => `<button role="tab" data-go="${id}"><span class="bar"><i></i></span><span class="t">${TIME[id]}</span><span class="l">${tr("t." + id)}</span></button>`).join("")}</div>
+  </section>`;
+}
+function bandsHTML() {
+  return `<div class="bands">${ORDER.map(id => `<section class="band" id="app-${id}" data-part="${app(id).name}">
+    <div class="btxt">${sayHTML(app(id))}</div>
+    <div class="bstage"><div class="stage ${id}-stage" id="st-${id}"></div></div>
+  </section>`).join("")}</div>`;
+}
+function rowHTML(a) {
+  return `<div class="lrow" id="app-${a.id}">
+    <img class="app-ic" src="${IC[a.id]}" alt="">
+    <div><h3 data-go="${a.id}">${a.name}</h3><span class="sub">${TIME[a.id]} · ${tr("t." + a.id)}</span></div>
+    <p>${tr("c." + a.id)}</p>
+    <div class="cta">${ctaHTML(a)}</div>
+  </div>`;
 }
 
 function renderText() {
@@ -449,7 +570,9 @@ function renderText() {
   document.title = tr("title");
   document.querySelectorAll("[data-i]").forEach(el => { el.innerHTML = tr(el.dataset.i); });
   document.querySelectorAll(".seg button").forEach(b => b.classList.toggle("on", b.dataset.lang === LANG));
-  document.getElementById("appgrid").innerHTML = APPS.map(cardHTML).join("");
+  document.body.classList.toggle("dir-b", DIR === "b");
+  document.getElementById("stagearea").innerHTML = DIR === "a" ? dayHTML() : bandsHTML();
+  document.getElementById("applist").innerHTML = ORDER.map(id => rowHTML(app(id))).join("");
   document.getElementById("hubstrip").innerHTML = stripHTML(null);
   document.getElementById("minis").innerHTML = APPS.map(a => `<img src="${IC[a.id]}" alt="">`).join("");
 }
@@ -457,9 +580,12 @@ function renderText() {
 document.addEventListener("click", (e) => {
   const lb = e.target.closest(".seg button");
   if (lb) { LANG = lb.dataset.lang; try { localStorage.setItem("hub.lang", LANG); } catch (er) {} renderText(); startDemos(); return; }
-  const d = e.target.closest("[data-dl]");
-  document.querySelectorAll(".dlpop.on").forEach(p => { if (!d || p.id !== "pop-" + d.dataset.dl) p.classList.remove("on"); });
-  if (d) document.getElementById("pop-" + d.dataset.dl).classList.toggle("on");
+  const d = e.target.closest("[data-dl]"), pop = d && d.parentElement.querySelector(".dlpop");
+  document.querySelectorAll(".dlpop.on").forEach(p => { if (p !== pop) p.classList.remove("on"); });
+  if (pop) pop.classList.toggle("on");
+  // 点时间线、Dock 上的图标、列表里的名字：跳到那一刻，并且不再自己往下播（访客选过就停）
+  const go = e.target.closest("[data-go]");
+  if (go && DIR === "a") { show(ORDER.indexOf(go.dataset.go), true); if (go.closest(".lrow")) document.getElementById("desk").scrollIntoView({ behavior: "smooth", block: "center" }); }
 });
 addEventListener("keydown", (e) => { if (e.key === "Escape") document.querySelectorAll(".dlpop.on").forEach(p => p.classList.remove("on")); });
 
@@ -533,7 +659,7 @@ const AF_ROUNDS = {
 };
 async function demoAF(gen) {
   const st = document.getElementById("st-af"); if (!st) return;
-  st.innerHTML = `<div class="af-menubar"><img src="${IC.af}" alt=""><span>9:41</span></div>
+  st.innerHTML = `<div class="af-menubar"><img src="${IC.af}" alt=""><span>${TIME.af}</span></div>
     <div class="af-win af-term" data-ctx="term"><div class="bar"><i></i><i></i><i></i><span>photo-site · zsh</span></div><div class="body"><div>$ npm run dev</div><div><span class="err" id="af-err">Error: Cannot find module 'sharp'</span></div><div class="dim">at Module._resolveFilename</div><div class="dim">node v22.11.0</div></div></div>
     <div class="af-win af-sheet" data-ctx="sheet" style="opacity:0"><div class="bar"><i></i><i></i><i></i><span>${LANG === "zh" ? "十月报销.xlsx" : "October expenses.xlsx"}</span></div>
       <table><tr class="hd"><td></td><td>${LANG === "zh" ? "日期" : "Date"}</td><td>${LANG === "zh" ? "事项" : "Item"}</td><td class="num">C</td></tr>
@@ -630,23 +756,23 @@ async function demoGNW(gen) {
     pop.classList.remove("fly"); pop.style.transform = "";
   }
 }
-/* Scholar Reader：论文里的两段，每段原文下面逐词出译文 */
-const SR_A = [["We propose a simple method that needs no labeled data.", "我们提出一种不需要标注数据的简单方法。"], ["On three benchmarks it improves accuracy by 4.2 points.", "在三个基准上，准确率提高了 4.2 个点。"]];
-const SR_B = [["The ablation shows that each component matters.", "消融实验表明每个部分都起作用。"], ["Training takes six hours on a single GPU.", "在一块 GPU 上训练六个小时。"]];
-const SR_SETS = {
-  zh: [{ lp: "English · 中文", ps: SR_A }, { lp: "English · 中文", ps: SR_B }],
+/* ParaRead：论文里的两段，每段原文下面逐词出译文 */
+const PR_A = [["We propose a simple method that needs no labeled data.", "我们提出一种不需要标注数据的简单方法。"], ["On three benchmarks it improves accuracy by 4.2 points.", "在三个基准上，准确率提高了 4.2 个点。"]];
+const PR_B = [["The ablation shows that each component matters.", "消融实验表明每个部分都起作用。"], ["Training takes six hours on a single GPU.", "在一块 GPU 上训练六个小时。"]];
+const PR_SETS = {
+  zh: [{ lp: "English · 中文", ps: PR_A }, { lp: "English · 中文", ps: PR_B }],
   en: [
-    { lp: "English · 中文", ps: SR_A },
-    { lp: "English · Deutsch", ps: [[SR_B[0][0], "Die Ablation zeigt, dass jede Komponente zählt."], [SR_B[1][0], "Das Training dauert sechs Stunden auf einer GPU."]] },
-    { lp: "English · 日本語", ps: [[SR_A[0][0], "ラベル付きデータのいらない簡単な手法を提案する。"], [SR_A[1][0], "3 つのベンチマークで精度が 4.2 ポイント上がった。"]] },
+    { lp: "English · 中文", ps: PR_A },
+    { lp: "English · Deutsch", ps: [[PR_B[0][0], "Die Ablation zeigt, dass jede Komponente zählt."], [PR_B[1][0], "Das Training dauert sechs Stunden auf einer GPU."]] },
+    { lp: "English · 日本語", ps: [[PR_A[0][0], "ラベル付きデータのいらない簡単な手法を提案する。"], [PR_A[1][0], "3 つのベンチマークで精度が 4.2 ポイント上がった。"]] },
   ],
 };
-async function demoSR(gen) {
-  const st = document.getElementById("st-sr"); if (!st) return;
-  st.innerHTML = `<div class="sr-page"><div class="h"></div><div class="sr-p"><div class="en"></div><div class="tr"></div></div><div class="sr-p"><div class="en"></div><div class="tr"></div></div></div><div class="sr-tag"></div>`;
+async function demoPR(gen) {
+  const st = document.getElementById("st-pr"); if (!st) return;
+  st.innerHTML = `<div class="pr-page"><div class="h"></div><div class="pr-p"><div class="en"></div><div class="tr"></div></div><div class="pr-p"><div class="en"></div><div class="tr"></div></div></div><div class="pr-tag"></div>`;
   const W = mkRunner(st, gen);
-  const ps = [...st.querySelectorAll(".sr-p")], tag = st.querySelector(".sr-tag");
-  const sets = SR_SETS[LANG];
+  const ps = [...st.querySelectorAll(".pr-p")], tag = st.querySelector(".pr-tag");
+  const sets = PR_SETS[LANG];
   const fill = (s) => { tag.textContent = s.lp; ps.forEach((p, i) => { p.querySelector(".en").textContent = s.ps[i][0]; p.querySelector(".tr").innerHTML = splitWords(s.ps[i][1]).map(w => `<span>${w}</span>`).join(""); }); };
   if (REDUCED) { fill(sets[0]); ps.forEach(p => { p.classList.add("on"); p.querySelectorAll(".tr span").forEach(x => x.classList.add("on")); }); return; }
   for (let i = 0; ; i = (i + 1) % sets.length) {
@@ -660,16 +786,41 @@ async function demoSR(gen) {
     await W(2600);
   }
 }
-function startDemos() {
+/* 方向 A：一次只演当前这一刻；没人点过就每 11 秒往后走一格，鼠标停在桌面上时不走 */
+const DEMO = { mc: demoMC, af: demoAF, gnw: demoGNW, pr: demoPR };
+const STAY = 11000;
+let CUR = Math.max(0, ORDER.indexOf((location.hash.match(/at=(\w+)/) || [])[1])), PICKED = false, HOVER = false;
+function show(i, byUser) {
+  CUR = i; if (byUser) PICKED = true;
+  const id = ORDER[i], desk = document.getElementById("desk"); if (!desk) return;
+  desk.dataset.t = id;
+  ORDER.forEach(x => { const st = document.getElementById("st-" + x); st.classList.toggle("on", x === id); if (x !== id) st.innerHTML = ""; });
+  document.getElementById("mb-app").textContent = app(id).name;
+  document.getElementById("clock").textContent = TIME[id];
+  const say = document.getElementById("say"); say.classList.remove("in"); say.innerHTML = sayHTML(app(id)); say.offsetWidth; say.classList.add("in");
+  document.querySelectorAll("#dock button").forEach(b => b.classList.toggle("on", b.dataset.go === id));
+  const tabs = [...document.querySelectorAll("#rail button")];
+  tabs.forEach((b, k) => { b.classList.toggle("on", k === i); b.setAttribute("aria-selected", k === i); b.querySelector(".bar i").style.width = k < i || (k === i && (PICKED || REDUCED)) ? "100%" : "0"; b.querySelector(".bar i").style.opacity = k < i ? ".3" : "1"; });
   const g = ++GEN;
-  [demoMC, demoAF, demoGNW, demoSR].forEach(f => f(g).catch(() => {}));
+  DEMO[id](g).catch(() => {});
+  if (!PICKED && !REDUCED) advance(g, i, tabs[i].querySelector(".bar i"));
+}
+async function advance(g, i, bar) {
+  for (let t = 0; t < STAY; ) { await sleep(100); if (g !== GEN) return; if (!HOVER) { t += 100; bar.style.width = (t / STAY * 100) + "%"; } }
+  show((i + 1) % ORDER.length);
+}
+document.addEventListener("mouseover", (e) => { HOVER = !!e.target.closest?.(".desk"); });
+function startDemos() {
+  if (DIR === "a") return show(CUR);
+  const g = ++GEN;
+  ORDER.forEach(id => DEMO[id](g).catch(() => {}));
 }
 
 renderText();
 startDemos();
 latest("mc", "meetcaption", { win: /\.exe$/, arm: /mac-arm64\.dmg$/, intel: /mac-x64\.dmg$/ });
 latest("af", "askfree", { mac: /^AskFree-[\d.]+\.dmg$/ });
-latest("sr", "scholar-reader-releases", { mac: /^ScholarReader-[\d.]+-mac-arm64\.dmg$/ });
+latest("pr", "pararead", { mac: /^ParaRead-[\d.]+-mac-arm64\.dmg$/ });
 </script>
 </body>
 </html>
