@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SchaeferAnjon 的软件</title>
-<meta name="description" content="SchaeferAnjon 一个人做的几个小软件：MeetCaption、Ask Free、GetNewWord、ParaRead。">
+<meta name="description" content="SchaeferAnjon 一个人做的几个小软件：MeetCaption、Ask Free、GetNewWord、ParaRead、TypeRight。">
 <link rel="icon" href="meetcaption.png">
 <style>
 :root {
@@ -18,11 +18,12 @@
   --btn: #111113; --btn-text: #ffffff;
   --shadow: 0 1px 2px rgba(17,17,19,.04), 0 8px 24px rgba(17,17,19,.06);
   --pop-shadow: 0 2px 6px rgba(17,17,19,.08), 0 18px 40px rgba(17,17,19,.14);
-  /* 三个软件各自的主色，取自各自的应用 */
-  --mc: #5a5ff0; --af: #2f6feb; --gnw: #5e6ad2; --mark: #e5484d; --ok: #1d9a54;
-  /* Ask Free 演示里的桌面、GetNewWord 演示里的网页 */
+  /* 各软件的主色，取自各自的应用 */
+  --mc: #5a5ff0; --af: #2f6feb; --gnw: #5e6ad2; --tr: #13804b; --mark: #e5484d; --ok: #1d9a54;
+  /* Ask Free 演示里的桌面、GetNewWord 演示里的网页；TypeRight 演示里「这里要改」的琥珀色和贴词小卡的底，取自 TypeRight 官网 */
   --desk: linear-gradient(135deg, #e7ecf6 0%, #eef0f5 45%, #f3ece9 100%);
   --page: #ffffff; --page-line: #ececef;
+  --tr-mark: #c98a12; --tr-pop: #ffffff;
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
@@ -32,9 +33,10 @@
   --btn: #f2f2f4; --btn-text: #111113;
   --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
   --pop-shadow: 0 2px 6px rgba(0,0,0,.4), 0 18px 40px rgba(0,0,0,.45);
-  --mc: #7176ff; --af: #6c9dff; --gnw: #7c86e6; --mark: #ff6369; --ok: #3fcf7f;
+  --mc: #7176ff; --af: #6c9dff; --gnw: #7c86e6; --tr: #52c690; --mark: #ff6369; --ok: #3fcf7f;
   --desk: linear-gradient(135deg, #1d2230 0%, #1b1c22 50%, #241e1f 100%);
   --page: #1b1b1e; --page-line: #2a2a2e;
+  --tr-mark: #e2a84a; --tr-pop: #2a2b30;
 }
 
 * { box-sizing: border-box; }
@@ -238,19 +240,69 @@ img { display: block; }
 .gnw-anki b.bump { transform: scale(1.35); color: var(--gnw); }
 .gnw-anki .sq { width: 10px; height: 8px; border: 1.5px solid var(--gnw); border-radius: 2px; }
 
+/* ===== 演示：TypeRight 打英文时，贴词小卡在词旁边改 ===== */
+.tr-stage { background: var(--surface-2); }
+.tr-win { position: absolute; inset: 12px; display: flex; flex-direction: column; border-radius: 8px; overflow: hidden; background: var(--page); box-shadow: 0 1px 2px rgba(0,0,0,.06); }
+.tr-win .bar { flex: none; height: 20px; display: flex; align-items: center; gap: 4px; padding: 0 8px; border-bottom: 1px solid var(--page-line); font-size: 10px; color: var(--text); white-space: nowrap; }
+.tr-win .bar i { width: 6px; height: 6px; border-radius: 50%; background: #ff5f57; } .tr-win .bar i + i { background: #febc2e; } .tr-win .bar i + i + i { background: #28c840; }
+.tr-win .bar .tt { margin-left: 6px; min-width: 0; overflow: hidden; text-overflow: ellipsis; } .tr-win .bar em { font-style: normal; color: var(--text-3); }
+.tr-win .bar .mo { flex: none; margin-left: auto; padding-left: 8px; color: var(--text-3); }
+.tr-msgs { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: 5px; padding: 8px 10px; overflow: hidden; }
+.tr-msgs .bub { max-width: 78%; align-self: flex-start; padding: 4px 9px; border-radius: 10px; background: var(--surface-2); font-size: 11.5px; line-height: 1.45; }
+.tr-msgs .bub.me { align-self: flex-end; background: var(--surface-3); opacity: 0; transform: translateY(4px); transition: opacity .25s, transform .25s; }
+.tr-msgs .bub.me.on { opacity: 1; transform: none; }
+.tr-comp { flex: none; margin: 0 8px 8px; padding: 6px 9px; border: 1px solid var(--line-2); border-radius: 8px; }
+.tr-field { min-height: 19px; font-size: 12.5px; line-height: 1.5; color: var(--text); white-space: pre-wrap; overflow-wrap: anywhere; }
+.tr-field span { border-radius: 2px; transition: color .8s, background-color .8s; }
+.tr-field .ime { border-bottom: 1.5px solid var(--text-2); }
+.tr-field .src { background: color-mix(in srgb, var(--tr-mark) 17%, transparent); border-bottom: 1.5px dotted var(--tr-mark); }
+.tr-field .just { color: var(--tr); background: color-mix(in srgb, var(--tr) 12%, transparent); transition: none; }
+.tr-field .caret { display: inline-block; width: 1.5px; height: 1.1em; margin-left: 1px; vertical-align: -.17em; background: var(--text); animation: tr-blink 1s steps(1) infinite; }
+@keyframes tr-blink { 50% { opacity: 0; } }
+.tr-pill { position: absolute; left: 0; top: 0; z-index: 3; display: flex; align-items: center; gap: 5px; height: 22px; padding: 0 9px 0 8px; border-radius: 999px; background: var(--tr-pop); border: 1px solid var(--line); box-shadow: var(--pop-shadow); font-size: 12px; color: var(--text-2); white-space: nowrap; opacity: 0; transform: translateY(3px); transition: opacity .15s, transform .2s; pointer-events: none; }
+.tr-pill.on { opacity: 1; transform: none; }
+.tr-pill .spin { display: inline-flex; gap: 2px; }
+.tr-pill .spin i { width: 4px; height: 4px; border-radius: 50%; background: currentColor; opacity: .3; animation: tr-sp 1s infinite; }
+.tr-pill .spin i:nth-child(2) { animation-delay: .15s; } .tr-pill .spin i:nth-child(3) { animation-delay: .3s; }
+@keyframes tr-sp { 50% { opacity: 1; } }
+.tr-pop { position: absolute; left: 0; top: 0; z-index: 3; min-width: 168px; max-width: min(330px, calc(100% - 16px)); padding: 8px 10px 7px; border-radius: 12px; background: var(--tr-pop); border: 1px solid var(--line); box-shadow: var(--pop-shadow); font-size: 12px; line-height: 1.5; opacity: 0; transform: translateY(4px); transition: opacity .2s, transform .25s; pointer-events: none; }
+.tr-pop.on { opacity: 1; transform: none; }
+.tr-pop::after { content: ""; position: absolute; left: var(--nx, 18px); bottom: -5px; width: 9px; height: 9px; background: var(--tr-pop); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); border-radius: 0 0 2px 0; transform: rotate(45deg); }
+.tr-pop .row { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+.tr-pop .row .ico { width: 12px; height: 12px; color: var(--text-3); }
+.tr-pop .row .ico.spk { width: 14px; height: 14px; color: var(--text-2); }
+.tr-pop .was { color: var(--text-3); text-decoration: line-through; }
+.tr-pop .from { color: var(--text-2); }
+.tr-pop .new { font-size: 15px; font-weight: 600; line-height: 1.3; color: var(--tr); }
+.tr-pop .ipa { color: var(--text-2); }
+.tr-pop .tip { margin-top: 2px; color: var(--text-2); }
+.tr-pop .kind { display: flex; gap: 6px; margin-bottom: 2px; font-weight: 500; color: var(--text-2); }
+.tr-pop .kind .r { margin-left: auto; font-weight: 400; color: var(--text-3); }
+.tr-pop .sent { font-size: 13px; color: var(--text); }
+.tr-pop del { margin-right: 2px; font-size: 12px; color: var(--text-3); }
+.tr-pop ins { padding: 0 2px; border-radius: 3px; background: color-mix(in srgb, var(--tr) 12%, transparent); color: var(--tr); font-weight: 600; text-decoration: none; }
+.tr-pop .why { margin-top: 4px; padding-top: 5px; border-top: 1px solid var(--line); color: var(--text); }
+.tr-pop .foot { display: flex; align-items: center; gap: 4px; margin-top: 5px; color: var(--text-3); white-space: nowrap; }
+.tr-pop .foot .sp { margin-left: auto; padding-left: 12px; }
+.tr-kc { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 17px; padding: 0 4px; border-radius: 5px; border: 1px solid var(--line-2); background: var(--surface-2); box-shadow: 0 1px 0 var(--line-2); font-size: 11px; font-weight: 500; line-height: 1; color: var(--text-2); transition: transform .1s, box-shadow .1s; }
+.tr-kc + .tr-kc { margin-left: 6px; }
+.tr-kc.down { transform: translateY(1px); box-shadow: 0 0 0 var(--line-2); color: var(--tr); border-color: var(--tr); }
+
 /* ===== 窄屏 ===== */
 
 /* ===== 新主页：方向 A「一天」 ===== */
 .day { margin-top: 4px; }
 .desk { position: relative; border-radius: 20px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); isolation: isolate; }
 .desk .wp { position: absolute; inset: 0; z-index: -2; opacity: 0; transition: opacity 1.4s ease; }
-.desk[data-t="mc"] .wp[data-w="mc"], .desk[data-t="gnw"] .wp[data-w="gnw"], .desk[data-t="pr"] .wp[data-w="pr"], .desk[data-t="af"] .wp[data-w="af"] { opacity: 1; }
+.desk[data-t="mc"] .wp[data-w="mc"], .desk[data-t="tr"] .wp[data-w="tr"], .desk[data-t="gnw"] .wp[data-w="gnw"], .desk[data-t="pr"] .wp[data-w="pr"], .desk[data-t="af"] .wp[data-w="af"] { opacity: 1; }
 /* 墙纸跟着钟点走：上午偏冷、正午最亮、下午暖、傍晚带一点紫和橙 */
 .wp[data-w="mc"] { background: linear-gradient(160deg, #dbe7f8 0%, #edf2f9 55%, #f8f3ec 100%); }
+.wp[data-w="tr"] { background: linear-gradient(160deg, #dfeaee 0%, #f0f4f2 58%, #f7f4e9 100%); }
 .wp[data-w="gnw"] { background: linear-gradient(160deg, #e6eef4 0%, #f5f6f2 60%, #f7f4e6 100%); }
 .wp[data-w="pr"] { background: linear-gradient(160deg, #f4eee2 0%, #f7f2e9 50%, #efe5d6 100%); }
 .wp[data-w="af"] { background: linear-gradient(160deg, #e7dff3 0%, #f4e5e6 55%, #f9e2cb 100%); }
 :root[data-theme="dark"] .wp[data-w="mc"] { background: linear-gradient(160deg, #18223a 0%, #1a1d27 55%, #221f1e 100%); }
+:root[data-theme="dark"] .wp[data-w="tr"] { background: linear-gradient(160deg, #182430 0%, #1b2022 58%, #24221b 100%); }
 :root[data-theme="dark"] .wp[data-w="gnw"] { background: linear-gradient(160deg, #1b222b 0%, #20221f 60%, #25231a 100%); }
 :root[data-theme="dark"] .wp[data-w="pr"] { background: linear-gradient(160deg, #27221a 0%, #24201a 50%, #2a2218 100%); }
 :root[data-theme="dark"] .wp[data-w="af"] { background: linear-gradient(160deg, #221b33 0%, #2b1f26 55%, #35261a 100%); }
@@ -258,6 +310,7 @@ img { display: block; }
 .desk .sun { position: absolute; z-index: -1; width: 560px; height: 560px; margin: -280px 0 0 -280px; border-radius: 50%; pointer-events: none; background: radial-gradient(closest-side, var(--sun, rgba(255,246,220,.95)), transparent); transition: left 1.8s cubic-bezier(.4,0,.2,1), top 1.8s cubic-bezier(.4,0,.2,1), opacity 1.4s; }
 :root[data-theme="dark"] .desk .sun { --sun: rgba(140,150,255,.16); }
 .desk[data-t="mc"] .sun { left: 8%; top: 4%; }
+.desk[data-t="tr"] .sun { left: 22%; top: -2%; }
 .desk[data-t="gnw"] .sun { left: 36%; top: -6%; }
 .desk[data-t="pr"] .sun { left: 66%; top: 2%; }
 .desk[data-t="af"] .sun { left: 92%; top: 46%; --sun: rgba(255,214,170,.95); }
@@ -291,8 +344,8 @@ img { display: block; }
 .dock button.on::after { content: ""; position: absolute; left: 50%; bottom: -8px; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: var(--text-2); }
 .dock button .tip { position: absolute; left: 50%; bottom: 46px; transform: translateX(-50%); padding: 3px 8px; border-radius: 6px; background: var(--btn); color: var(--btn-text); font-size: 11.5px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .15s; }
 .dock button:hover .tip { opacity: 1; }
-/* 桌面下面一条时间线：四个钟点，当前这一格的细线慢慢走满 */
-.rail { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 16px; }
+/* 桌面下面一条时间线：每个软件一个钟点，当前这一格的细线慢慢走满 */
+.rail { display: grid; grid-template-columns: repeat(5, 1fr); margin-top: 16px; }
 .rail button { position: relative; display: flex; flex-direction: column; gap: 1px; text-align: left; border: 0; background: none; padding: 13px 4px 4px; cursor: pointer; color: var(--text-3); }
 .rail .bar { position: absolute; left: 0; right: 10px; top: 0; height: 2px; border-radius: 2px; background: var(--line-2); overflow: hidden; }
 .rail .bar i { display: block; width: 0; height: 100%; background: var(--text); }
@@ -355,6 +408,7 @@ body.dir-b #apps .facts { margin-top: 0; padding-top: 24px; border-top: 1px soli
 @media (prefers-reduced-motion: reduce) {
   .desk .wp, .desk .sun, .say > * { transition: none; }
   .af-cap.talk .wave i { animation: none; height: 10px; }
+  .tr-field .caret, .tr-pill .spin i { animation: none; }
 }
 </style>
 </head>
@@ -366,6 +420,8 @@ body.dir-b #apps .facts { margin-top: 0; padding-top: 24px; border-top: 1px soli
   <symbol id="i-dl" viewBox="0 0 24 24"><path d="M12 4v11m-4.5-4.5L12 15l4.5-4.5M5 19.5h14"/></symbol>
   <symbol id="i-code" viewBox="0 0 24 24"><path d="M8.5 7.5L4 12l4.5 4.5m7-9L20 12l-4.5 4.5"/></symbol>
   <symbol id="i-site" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.3 2.3 3.3 5.2 3.3 8.5s-1 6.2-3.3 8.5c-2.3-2.3-3.3-5.2-3.3-8.5s1-6.2 3.3-8.5z"/></symbol>
+  <symbol id="i-arr" viewBox="0 0 24 24"><path d="M5 12h14m-7-7l7 7-7 7"/></symbol>
+  <symbol id="i-spk" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5zm4.5 3.5a5 5 0 0 1 0 7"/></symbol>
 </svg>
 
 <header class="nav"><div class="wrap in">
@@ -402,7 +458,7 @@ body.dir-b #apps .facts { margin-top: 0; padding-top: 24px; border-top: 1px soli
 
 <script>
 { const mq = matchMedia("(prefers-color-scheme: dark)"), set = () => { document.documentElement.dataset.theme = mq.matches ? "dark" : "light"; }; set(); mq.addEventListener("change", set); }
-const IC = { mc: "meetcaption.png", af: "askfree.png", gnw: "getnewword.png", pr: "pararead.png" };
+const IC = { mc: "meetcaption.png", af: "askfree.png", gnw: "getnewword.png", pr: "pararead.png", tr: "typeright.png" };
 const GH = "https://github.com/SchaeferAnjon";
 // 下载链接先指向发布页，GitHub 接口回来后换成最新一版的文件（文件名带版本号，按结尾认）
 const URLS = {
@@ -411,6 +467,8 @@ const URLS = {
   gnw: { site: "https://getnewword.us-cloud.uk", gh: `${GH}/GetNewWord`, mac: `${GH}/GetNewWord/releases/latest/download/GetNewWord.dmg` },
   // ParaRead 的源码、安装包和官网都在 pararead 这个仓库
   pr: { site: "https://pararead.us-cloud.uk", gh: `${GH}/pararead`, mac: `${GH}/pararead/releases/latest/download/ParaRead-mac-arm64.dmg` },
+  // TypeRight 的安装包名带版本号（TypeRight-0.1.0-Universal.dmg），先指向发布页，接口回来再换成文件
+  tr: { site: "https://typeright.us-cloud.uk", gh: `${GH}/TypeRight`, mac: `${GH}/TypeRight/releases/latest` },
 };
 
 const T = {
@@ -419,8 +477,8 @@ const T = {
     "nav.apps": "软件", "nav.about": "关于",
     "intro.k": "SchaeferAnjon 的软件 · 一个人做",
     "intro.h": "几个小软件，<br>各把一件事做好。",
-    "intro.p": "开会、读外文、读论文、对着屏幕想问一句时用得上。<br><b>发布了的都开源，不用注册账号。</b>",
-    "f1.b": "源码公开", "f1.t": "MeetCaption、Ask Free、GetNewWord 和 ParaRead 的源码都在 GitHub，GPL-3.0，可以自己编译。",
+    "intro.p": "开会、打英文、读外文、读论文、对着屏幕想问一句时用得上。<br><b>发布了的都开源，不用注册账号。</b>",
+    "f1.b": "源码公开", "f1.t": "MeetCaption、TypeRight、GetNewWord、ParaRead 和 Ask Free 的源码都在 GitHub，GPL-3.0，可以自己编译。",
     "f2.b": "不用注册账号", "f2.t": "下载打开就能用，不用在这里开账号。",
     "f3.b": "一个人维护", "f3.t": "写代码、回问题、发新版的是同一个人。",
     "ab.k": "关于", "ab.h": "做这些软件的人",
@@ -435,6 +493,7 @@ const T = {
     "c.af": "按一个键说出问题，AI 看着你的屏幕回答。住在 Mac 菜单栏里。",
     "c.gnw": "框住外语词，马上出这句里的意思，一键记进 Anki。",
     "c.pr": "读英文论文：每段原文下面跟一段译文，问 AI 的回答带出处，还有一页速览。",
+    "c.tr": "Mac 上的英文打字助手。拼错、不会说、语法不对，它在那个词旁边弹一张小卡，按 Tab 改好。",
     "t.open": "开源", "b.dl": "下载", "b.site": "官网", "note.soon": "官网筹备中", "soon": "即将推出",
     "dl.t": "选你的电脑", "dl.win": "Windows", "dl.arm": "Mac", "dl.intel": "Mac", "dl.winm": "Windows 10 / 11", "dl.armm": "Apple 芯片", "dl.intelm": "Intel 芯片",
     "by": "<b>SchaeferAnjon</b> 出品", "all": "全部软件", "here": "你在这里",
@@ -442,20 +501,25 @@ const T = {
     "af.key": "你设的键", "af.listen": "在听", "af.rec": "识别中", "af.h": "问 AI",
     "list.k": "全部软件",
     "day": "周三",
-    "t.mc": "开会", "t.gnw": "读外文", "t.pr": "读论文", "t.af": "想问一句",
+    "t.mc": "开会", "t.tr": "打英文", "t.gnw": "读外文", "t.pr": "读论文", "t.af": "想问一句",
     "m.mc": "对方越说越快，<br>字幕替你接住。",
+    "m.tr": "回英文卡在一个词，<br>先打中文，按 Tab 换好。",
     "m.gnw": "卡在一个词上，<br>框一下就知道。",
     "m.pr": "一段话看了三遍，<br>译文就在下面。",
     "m.af": "屏幕上蹦出个报错，<br>张嘴问一句就行。",
     "anki": "Anki · 今天",
+    "tr.sub": " · 微信", "tr.m1": "1 · 打了中文 → 英文", "tr.m2": "2 · 拼错 → 改好", "tr.m3": "3 · 一句打完 → 查语法",
+    "tr.think": "想一下…", "tr.keep": "不改", "tr.use": "换成 book", "tr.fix": "改好", "tr.rep": "整句换掉",
+    "tr.save": "记进生词本", "tr.local": "拼写 · 在本机查", "tr.sent": "整句", "tr.n1": "改了 1 处",
+    "tr.tip": "订会议室、餐厅用 book；约医生说 make an appointment。", "tr.why": "主语是 I，动词用 have；has 只跟 he / she / it。",
   },
   en: {
     "title": "Apps by SchaeferAnjon",
     "nav.apps": "Apps", "nav.about": "About",
     "intro.k": "Apps by SchaeferAnjon · made by one person",
     "intro.h": "A few small apps,<br>each doing one thing well.",
-    "intro.p": "For meetings, for reading in another language, for reading papers, for asking about what is on your screen.<br><b>Everything released is open source, and no account is needed.</b>",
-    "f1.b": "Open source", "f1.t": "MeetCaption, Ask Free, GetNewWord and ParaRead are on GitHub under GPL-3.0. Build them yourself if you like.",
+    "intro.p": "For meetings, for writing in English, for reading in another language, for reading papers, for asking about what is on your screen.<br><b>Everything released is open source, and no account is needed.</b>",
+    "f1.b": "Open source", "f1.t": "MeetCaption, TypeRight, GetNewWord, ParaRead and Ask Free are on GitHub under GPL-3.0. Build them yourself if you like.",
     "f2.b": "No sign-up needed", "f2.t": "Download, open, use. There is no account to create here.",
     "f3.b": "One maintainer", "f3.t": "The person who writes the code also answers the issues and ships updates.",
     "ab.k": "About", "ab.h": "Who makes these",
@@ -470,6 +534,7 @@ const T = {
     "c.af": "Hold a key, ask out loud, and AI answers by looking at your screen. Lives in the Mac menu bar.",
     "c.gnw": "Box a foreign word to see what it means in this sentence, then send it to Anki in one click.",
     "c.pr": "Read English papers with a translation under every paragraph, AI answers with sources and a one-page glance.",
+    "c.tr": "An English typing helper for the Mac. Misspelled, stuck on a word or a grammar slip: a small card pops up beside the word, and Tab fixes it.",
     "t.open": "Open source", "b.dl": "Download", "b.site": "Website", "note.soon": "Website coming", "soon": "Coming soon",
     "dl.t": "Pick your computer", "dl.win": "Windows", "dl.arm": "Mac", "dl.intel": "Mac", "dl.winm": "Windows 10 / 11", "dl.armm": "Apple silicon", "dl.intelm": "Intel chip",
     "by": "Made by <b>SchaeferAnjon</b>", "all": "All apps", "here": "You are here",
@@ -477,12 +542,17 @@ const T = {
     "af.key": "your key", "af.listen": "Listening", "af.rec": "Transcribing", "af.h": "Ask AI",
     "list.k": "All apps",
     "day": "Wed",
-    "t.mc": "A meeting", "t.gnw": "Reading abroad", "t.pr": "A paper", "t.af": "A quick question",
+    "t.mc": "A meeting", "t.tr": "Writing English", "t.gnw": "Reading abroad", "t.pr": "A paper", "t.af": "A quick question",
     "m.mc": "They talk faster and faster.<br>The captions keep up for you.",
+    "m.tr": "Stuck on one English word.<br>Type it in Chinese, press Tab.",
     "m.gnw": "Stuck on one word.<br>Box it and you know.",
     "m.pr": "The same paragraph, three times.<br>The translation is right below.",
     "m.af": "An error pops up on screen.<br>Just ask it out loud.",
     "anki": "Anki · today",
+    "tr.sub": " · WeChat", "tr.m1": "1 · Chinese → English", "tr.m2": "2 · Typo → fixed", "tr.m3": "3 · Sentence → checked",
+    "tr.think": "Thinking…", "tr.keep": "Keep", "tr.use": "Use book", "tr.fix": "Fix", "tr.rep": "Replace sentence",
+    "tr.save": "Saved to word list", "tr.local": "Spelling · on your Mac", "tr.sent": "Sentence", "tr.n1": "1 change",
+    "tr.tip": "Book a room or a table; for a doctor, say make an appointment.", "tr.why": "The subject is I, so the verb is have; has goes with he / she / it.",
   },
 };
 
@@ -491,6 +561,7 @@ const APPS = [
   { id: "af", name: "Ask Free", plats: ["mac"] },
   { id: "gnw", name: "GetNewWord", plats: ["mac"] }, // Windows 版在做，发了再加 "win"
   { id: "pr", name: "ParaRead", plats: ["mac"] },
+  { id: "tr", name: "TypeRight", plats: ["mac"] },
 ];
 
 /* 语言：#lang= > 上次选的 > 浏览器语言 */
@@ -508,10 +579,10 @@ function stripHTML(cur) {
     <span class="icons">${APPS.map(a => `<a class="${a.id === cur ? "cur" : ""}" href="${appLink(a)}" aria-label="${a.name}"><img src="${IC[a.id]}" alt=""><span class="tip">${a.name}${a.id === cur ? " · " + tr("here") : ""}</span></a>`).join("")}</span>`;
 }
 
-/* 新主页：一天里的四个时刻，按钟点排 */
+/* 新主页：一天里的几个时刻，按钟点排 */
 const DIR = "a";
-const ORDER = ["mc", "gnw", "pr", "af"];
-const TIME = { mc: "09:30", gnw: "11:05", pr: "14:20", af: "16:40" };
+const ORDER = ["mc", "tr", "gnw", "pr", "af"];
+const TIME = { mc: "09:30", tr: "10:15", gnw: "11:05", pr: "14:20", af: "16:40" };
 const app = (id) => APPS.find(a => a.id === id);
 function tagsHTML(a) {
   return a.plats.map(p => p === "mac" ? `<li>${svg("apple")}Mac</li>` : `<li>${svg("win")}Windows</li>`).join("") + `<li>${svg("code", "ico s")}${tr("t.open")} GPL-3.0</li>`;
@@ -594,7 +665,8 @@ function latest(id, repo, pick) {
   fetch(`https://api.github.com/repos/SchaeferAnjon/${repo}/releases/latest`).then(r => (r.ok ? r.json() : null)).then(j => {
     if (!j) return;
     for (const [k, re] of Object.entries(pick)) { const f = j.assets.find(x => re.test(x.name)); if (f) URLS[id][k] = f.browser_download_url; }
-    document.querySelectorAll(`#app-${id} [data-f]`).forEach(el => { el.href = URLS[id][el.dataset.f]; });
+    // 列表里那一行，和桌面上正在演的这一刻（如果就是它）
+    document.querySelectorAll(`#app-${id} [data-f]${ORDER[CUR] === id ? ", #say [data-f]" : ""}`).forEach(el => { el.href = URLS[id][el.dataset.f]; });
   }).catch(() => {});
 }
 
@@ -786,8 +858,69 @@ async function demoPR(gen) {
     await W(2600);
   }
 }
+/* TypeRight：打了中文、拼错、一句打完，各在词旁边弹一张贴词小卡，按 Tab 改好；和 TypeRight 官网首屏同一段。
+   中文变英文和拼写在头 10 秒里演完，桌面自己往下走之前看得到；点过停在这一刻的人能看到整句那一张 */
+async function demoTR(gen) {
+  const st = document.getElementById("st-tr"); if (!st) return;
+  st.innerHTML = `<div class="tr-win"><div class="bar"><i></i><i></i><i></i><span class="tt">Lena Hoffmann<em>${tr("tr.sub")}</em></span><span class="mo"></span></div>
+      <div class="tr-msgs"><div class="bub">Do you have time to talk this week?</div></div>
+      <div class="tr-comp"><div class="tr-field"><span class="caret"></span></div></div></div>
+    <div class="tr-pill"><span class="spin"><i></i><i></i><i></i></span>${tr("tr.think")}</div>
+    <div class="tr-pop"></div>`;
+  const W = mkRunner(st, gen);
+  const field = st.querySelector(".tr-field"), caret = field.querySelector(".caret"), msgs = st.querySelector(".tr-msgs"), mo = st.querySelector(".mo"), pill = st.querySelector(".tr-pill"), pop = st.querySelector(".tr-pop");
+  const CN = "预约";
+  const kc = (k) => `<span class="tr-kc">${k}</span>`;
+  const foot = (acc, right) => `<div class="foot">${kc("Tab")}${acc}${kc("Esc")}${tr("tr.keep")}${right ? `<span class="sp">${right}</span>` : ""}</div>`;
+  const CARD = {
+    cn: `<div class="row"><span class="from">${CN}</span>${svg("arr", "ico s")}<span class="new">book</span><span class="ipa">/bʊk/</span>${svg("spk", "ico s spk")}</div><div class="tip">${tr("tr.tip")}</div>${foot(tr("tr.use"), tr("tr.save"))}`,
+    spell: `<div class="row"><span class="was">tomorow</span>${svg("arr", "ico s")}<span class="new">tomorrow</span></div>${foot(tr("tr.fix"), tr("tr.local"))}`,
+    sent: `<div class="kind">${tr("tr.sent")}<span class="r">${tr("tr.n1")}</span></div><div class="sent">because I <del>has</del><ins>have</ins> a question.</div><div class="why">${tr("tr.why")}</div>${foot(tr("tr.rep"))}`,
+  };
+  // 词折行时取第一行的左上角和最后一行的右端
+  const rectOf = (el) => { const rs = el.getClientRects(), s = st.getBoundingClientRect(), a = rs[0], b = rs[rs.length - 1]; return { x: a.left - s.left, y: a.top - s.top, r: b.right - s.left }; };
+  const seg = (c = "") => { const s = document.createElement("span"); s.className = c; field.insertBefore(s, caret); return s; };
+  const clear = () => field.querySelectorAll("span:not(.caret)").forEach(s => s.remove());
+  const type = async (s, text, ms = 40) => { for (const ch of text) { s.textContent += ch; await W(ms + Math.random() * 30); } };
+  const showPill = (el) => { const r = rectOf(el), pw = pill.offsetWidth; pill.style.left = Math.max(8, Math.min(r.r - pw, st.clientWidth - pw - 8)) + "px"; pill.style.top = r.y - pill.offsetHeight - 6 + "px"; pill.classList.add("on"); };
+  // 贴词小卡左边和词对齐、小尖角指着词；输入框在窗口最下面，下面放不下，翻到词上面
+  const showCard = (kind, el) => {
+    pop.innerHTML = CARD[kind];
+    const r = rectOf(el), w = pop.offsetWidth, h = pop.offsetHeight, left = Math.max(8, Math.min(r.x - 12, st.clientWidth - w - 8));
+    pop.style.left = left + "px"; pop.style.top = Math.max(6, r.y - h - 9) + "px";
+    pop.style.setProperty("--nx", Math.max(10, Math.min(r.x + 8 - left, w - 20)) + "px");
+    pill.classList.remove("on"); pop.classList.add("on");
+  };
+  const accept = async () => { pop.querySelector(".tr-kc").classList.add("down"); await W(400); pop.classList.remove("on"); };
+  const fixed = (el, text) => { el.textContent = text; el.className = "just"; setTimeout(() => { el.className = ""; }, 1200); };
+  if (REDUCED) { seg().textContent = "I want to "; const w = seg("src"); w.textContent = CN; mo.textContent = tr("tr.m1"); showCard("cn", w); return; }
+  for (;;) {
+    clear(); mo.textContent = tr("tr.m1");
+    await type(seg(), "I want to ");
+    const w1 = seg("ime"); await type(w1, CN, 200);
+    await W(300); w1.className = "src";
+    showPill(w1); await W(900);
+    showCard("cn", w1); await W(2300);
+    await accept(); fixed(w1, "book");
+    await W(400); mo.textContent = tr("tr.m2");
+    await type(seg(), " a meeting room ");
+    const w2 = seg(); await type(w2, "tomorow"); await type(seg(), " ");
+    w2.className = "src"; showCard("spell", w2); await W(2000);
+    await accept(); fixed(w2, "tomorrow");
+    await W(500); mo.textContent = tr("tr.m3");
+    const w3 = seg(); await type(w3, "because I has a question.");
+    showPill(w3); await W(1000);
+    showCard("sent", field); await W(3200);
+    await accept(); clear(); fixed(seg(), "I want to book a meeting room tomorrow because I have a question.");
+    await W(1400);
+    const me = document.createElement("div"); me.className = "bub me"; me.textContent = field.textContent;
+    clear(); msgs.append(me); me.offsetWidth; me.classList.add("on");
+    await W(2400);
+    me.remove();
+  }
+}
 /* 方向 A：一次只演当前这一刻；没人点过就每 11 秒往后走一格，鼠标停在桌面上时不走 */
-const DEMO = { mc: demoMC, af: demoAF, gnw: demoGNW, pr: demoPR };
+const DEMO = { mc: demoMC, af: demoAF, gnw: demoGNW, pr: demoPR, tr: demoTR };
 const STAY = 11000;
 let CUR = Math.max(0, ORDER.indexOf((location.hash.match(/at=(\w+)/) || [])[1])), PICKED = false, HOVER = false;
 function show(i, byUser) {
@@ -821,6 +954,7 @@ startDemos();
 latest("mc", "meetcaption", { win: /\.exe$/, arm: /mac-arm64\.dmg$/, intel: /mac-x64\.dmg$/ });
 latest("af", "askfree", { mac: /^AskFree-[\d.]+\.dmg$/ });
 latest("pr", "pararead", { mac: /^ParaRead-[\d.]+-mac-arm64\.dmg$/ });
+latest("tr", "TypeRight", { mac: /^TypeRight-[\d.]+-Universal\.dmg$/ });
 </script>
 </body>
 </html>
