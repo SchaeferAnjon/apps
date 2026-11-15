@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SchaeferAnjon 的软件</title>
-<meta name="description" content="SchaeferAnjon 一个人做的几个小软件：MeetCaption、Ask Free、GetNewWord、ParaRead、TypeRight、Canvas Notes。">
+<meta name="description" content="SchaeferAnjon 一个人做的几个小软件：MeetCaption、Ask Free、GetNewWord、ParaRead、TypeRight、Canvas Notes、Dispatch。">
 <link rel="icon" href="meetcaption.png">
 <style>
 :root {
@@ -239,6 +239,46 @@ img { display: block; }
 .cn-ptr.on { opacity: 1; }
 .cn-ptr svg { width: 16px; height: 16px; fill: var(--cn); stroke: #fff; stroke-width: 1.5; filter: drop-shadow(0 1px 2px rgba(0,0,0,.25)); }
 .cn-ptr span { position: absolute; left: 13px; top: 13px; padding: 0 5px; border-radius: 999px; background: var(--cn); color: #fff; font: 600 9.5px/15px var(--sans); }
+/* ===== 演示：Dispatch 右边一步步走，新文件冒一张小卡 ===== */
+.dp-stage { background: var(--surface); --dp-hair: var(--line); --dp-sel: var(--surface-2); --dp-run: #2e8b57; --dp-done: #2f6f73; --dp-grey: var(--text-3); font-size: 11px; line-height: 1.45; }
+:root[data-theme="dark"] .dp-stage { --dp-done: #3a797d; }
+.dp-tb { height: 24px; display: flex; align-items: center; gap: 5px; padding: 0 10px; color: var(--text-2); font-size: 10.5px; border-bottom: 1px solid var(--dp-hair); }
+.dp-tb i { width: 7px; height: 7px; border-radius: 50%; background: var(--line-2); } .dp-tb i + i { margin-left: -1px; }
+.dp-tb .m { flex: 1; text-align: center; } .dp-tb b { color: var(--text); font-weight: 500; }
+.dp-body { position: absolute; top: 24px; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: 158px 1fr; }
+.dp-side { padding: 6px 6px; background: var(--surface-2); border-right: 1px solid var(--dp-hair); }
+.dp-row { display: flex; align-items: center; gap: 6px; height: 22px; padding: 0 6px; border-radius: 11px; white-space: nowrap; overflow: hidden; color: var(--text); }
+.dp-row.in { padding-left: 16px; } .dp-row.sel { background: var(--surface-3); }
+.dp-row .n { margin-left: auto; color: var(--text-3); font-size: 10px; }
+.dp-row .t { overflow: hidden; text-overflow: ellipsis; }
+.dp-stage svg.o { width: 11px; height: 11px; flex: none; fill: none; stroke: var(--text-2); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.dp-ic { position: relative; width: 11px; height: 10px; flex: none; overflow: hidden; }
+.dp-ic b { position: absolute; width: 2.2px; border-radius: .5px; animation: dp-fall 3.5s infinite both; }
+@keyframes dp-fall { 0% { transform: translateY(-11px); opacity: 0; } 0.5% { opacity: 1; } 12% { transform: translateY(0); animation-timing-function: ease-out; } 15% { transform: translateY(-1.2px); animation-timing-function: ease-in; } 18% { transform: translateY(0); } 60% { opacity: 1; } 64%, 100% { opacity: 0; transform: translateY(0); } }
+.dp-now { padding: 9px 14px; position: relative; }
+.dp-st { display: flex; align-items: center; gap: 6px; color: var(--text-2); font-size: 10.5px; }
+.dp-now h4 { margin: 3px 0 0; font-size: 13px; font-weight: 600; line-height: 1.3; }
+.dp-rn { margin-top: 1px; color: var(--text-2); font-size: 10.5px; height: 15px; }
+.dp-rn, .dp-st { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dp-steps { margin-top: 8px; position: relative; }
+.dp-steps::before { content: ""; position: absolute; left: 5px; top: 8px; bottom: 8px; width: 1px; background: var(--dp-hair); }
+.dp-step { position: relative; display: flex; align-items: center; gap: 7px; height: 20px; color: var(--text-3); transition: color .2s; }
+.dp-step.cur { color: var(--text); font-weight: 500; } .dp-step.dn { color: var(--text-2); }
+.dp-mk { width: 11px; height: 11px; border-radius: 50%; flex: none; box-sizing: border-box; border: 1.3px solid var(--text-3); background: var(--surface); transition: background-color .2s, border-color .2s; display: grid; place-items: center; }
+.dp-step.cur .dp-mk { border: 0; background: var(--dp-run); animation: dp-br 2s ease-in-out infinite; }
+.dp-step.dn .dp-mk { border: 0; background: var(--text-3); }
+.dp-step.dn .dp-mk::after, .dp-mk.done::after { content: ""; width: 4px; height: 2px; border-left: 1.3px solid var(--surface); border-bottom: 1.3px solid var(--surface); transform: rotate(-45deg) translate(.5px, -.5px); }
+.dp-mk.done { border: 0; background: var(--dp-done); }
+@keyframes dp-br { 50% { opacity: .8; } }
+.dp-card { position: absolute; right: 10px; bottom: 8px; width: 210px; padding: 7px 9px 8px 10px; border-radius: 9px; background: var(--surface); border: 1px solid var(--line-2); box-shadow: var(--pop-shadow); opacity: 0; transform: translateY(6px); transition: opacity .2s, transform .2s; }
+.dp-card.on { opacity: 1; transform: none; }
+.dp-card .h { display: flex; align-items: center; gap: 6px; } .dp-card .h b { font-weight: 500; font-size: 11.5px; } .dp-card .h small { font-size: 9.5px; color: var(--text-3); }
+.dp-card p { margin: 2px 0 6px 17px; color: var(--text-2); font-size: 11px; line-height: 1.45; }
+.dp-card .tl { margin-left: 17px; height: 2px; border-radius: 2px; background: var(--line); overflow: hidden; } .dp-card .tl i { display: block; height: 100%; width: 0; background: var(--text-3); }
+.dp-card.on .tl i { transition: width 5s linear; width: 100%; }
+.dp-pill { position: absolute; right: 10px; bottom: 10px; height: 26px; padding: 0 11px; border-radius: 999px; display: flex; align-items: center; gap: 6px; background: var(--surface); border: 1px solid var(--line-2); box-shadow: var(--pop-shadow); opacity: 0; transform: translateY(6px); transition: opacity .2s, transform .2s; }
+.dp-pill.on { opacity: 1; transform: none; } .dp-pill b { font-weight: 500; } .dp-pill small { color: var(--text-3); }
+@media (prefers-reduced-motion: reduce) { .dp-ic b, .dp-step.cur .dp-mk { animation: none; } }
 .gnw-stage { background: var(--surface-2); }
 .gnw-page { position: absolute; left: 14px; right: 14px; top: 14px; bottom: -10px; border-radius: 8px; background: var(--page); box-shadow: 0 1px 2px rgba(0,0,0,.06); padding: 16px 18px; }
 .gnw-page .ln { height: 7px; border-radius: 3px; background: var(--page-line); margin: 0 0 9px; }
@@ -320,7 +360,7 @@ img { display: block; }
 .day { margin-top: 4px; }
 .desk { position: relative; border-radius: 20px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); isolation: isolate; }
 .desk .wp { position: absolute; inset: 0; z-index: -2; opacity: 0; transition: opacity 1.4s ease; }
-.desk[data-t="mc"] .wp[data-w="mc"], .desk[data-t="tr"] .wp[data-w="tr"], .desk[data-t="gnw"] .wp[data-w="gnw"], .desk[data-t="pr"] .wp[data-w="pr"], .desk[data-t="af"] .wp[data-w="af"], .desk[data-t="cn"] .wp[data-w="cn"] { opacity: 1; }
+.desk[data-t="mc"] .wp[data-w="mc"], .desk[data-t="tr"] .wp[data-w="tr"], .desk[data-t="gnw"] .wp[data-w="gnw"], .desk[data-t="pr"] .wp[data-w="pr"], .desk[data-t="af"] .wp[data-w="af"], .desk[data-t="cn"] .wp[data-w="cn"], .desk[data-t="dp"] .wp[data-w="dp"] { opacity: 1; }
 /* 墙纸跟着钟点走：上午偏冷、正午最亮、下午暖、傍晚带一点紫和橙 */
 .wp[data-w="mc"] { background: linear-gradient(160deg, #dbe7f8 0%, #edf2f9 55%, #f8f3ec 100%); }
 .wp[data-w="tr"] { background: linear-gradient(160deg, #dfeaee 0%, #f0f4f2 58%, #f7f4e9 100%); }
@@ -328,12 +368,14 @@ img { display: block; }
 .wp[data-w="pr"] { background: linear-gradient(160deg, #f4eee2 0%, #f7f2e9 50%, #efe5d6 100%); }
 .wp[data-w="af"] { background: linear-gradient(160deg, #e7dff3 0%, #f4e5e6 55%, #f9e2cb 100%); }
 .wp[data-w="cn"] { background: linear-gradient(160deg, #e2dcef 0%, #ebe6f1 55%, #efe9ef 100%); }
+.wp[data-w="dp"] { background: linear-gradient(160deg, #d8dbea 0%, #e9e5e6 52%, #f0e3d3 100%); }
 :root[data-theme="dark"] .wp[data-w="mc"] { background: linear-gradient(160deg, #18223a 0%, #1a1d27 55%, #221f1e 100%); }
 :root[data-theme="dark"] .wp[data-w="tr"] { background: linear-gradient(160deg, #182430 0%, #1b2022 58%, #24221b 100%); }
 :root[data-theme="dark"] .wp[data-w="gnw"] { background: linear-gradient(160deg, #1b222b 0%, #20221f 60%, #25231a 100%); }
 :root[data-theme="dark"] .wp[data-w="pr"] { background: linear-gradient(160deg, #27221a 0%, #24201a 50%, #2a2218 100%); }
 :root[data-theme="dark"] .wp[data-w="af"] { background: linear-gradient(160deg, #221b33 0%, #2b1f26 55%, #35261a 100%); }
 :root[data-theme="dark"] .wp[data-w="cn"] { background: linear-gradient(160deg, #17142a 0%, #1c1828 55%, #221b2a 100%); }
+:root[data-theme="dark"] .wp[data-w="dp"] { background: linear-gradient(160deg, #131726 0%, #1a1a20 55%, #271f18 100%); }
 /* 一团光从左上慢慢走到右下：太阳在走 */
 .desk .sun { position: absolute; z-index: -1; width: 560px; height: 560px; margin: -280px 0 0 -280px; border-radius: 50%; pointer-events: none; background: radial-gradient(closest-side, var(--sun, rgba(255,246,220,.95)), transparent); transition: left 1.8s cubic-bezier(.4,0,.2,1), top 1.8s cubic-bezier(.4,0,.2,1), opacity 1.4s; }
 :root[data-theme="dark"] .desk .sun { --sun: rgba(140,150,255,.16); }
@@ -345,6 +387,9 @@ img { display: block; }
 :root[data-theme="dark"] .desk[data-t="af"] .sun { --sun: rgba(255,170,110,.16); }
 .desk[data-t="cn"] .sun { left: 86%; top: -8%; --sun: rgba(225,210,250,.85); }
 :root[data-theme="dark"] .desk[data-t="cn"] .sun { --sun: rgba(201,139,219,.14); }
+/* 19:40 天黑了，光从左下角的台灯来 */
+.desk[data-t="dp"] .sun { left: 6%; top: 104%; --sun: rgba(255,208,150,.95); }
+:root[data-theme="dark"] .desk[data-t="dp"] .sun { --sun: rgba(255,176,104,.18); }
 .menubar { display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 14px; font-size: 12.5px; color: var(--text); background: color-mix(in srgb, var(--surface) 50%, transparent); backdrop-filter: blur(20px) saturate(1.4); border-bottom: 1px solid var(--line); }
 .menubar .ico { width: 13px; height: 13px; }
 .menubar b { font-weight: 600; }
@@ -376,7 +421,7 @@ img { display: block; }
 .dock button:hover .tip { opacity: 1; }
 .dock button:last-child .tip { left: auto; right: -4px; transform: none; }
 /* 桌面下面一条时间线：每个软件一个钟点，当前这一格的细线慢慢走满 */
-.rail { display: grid; grid-template-columns: repeat(6, 1fr); margin-top: 16px; }
+.rail { display: grid; grid-template-columns: repeat(7, 1fr); margin-top: 16px; }
 .rail button { position: relative; display: flex; flex-direction: column; gap: 1px; text-align: left; border: 0; background: none; padding: 13px 4px 4px; cursor: pointer; color: var(--text-3); }
 .rail .bar { position: absolute; left: 0; right: 10px; top: 0; height: 2px; border-radius: 2px; background: var(--line-2); overflow: hidden; }
 .rail .bar i { display: block; width: 0; height: 100%; background: var(--text); }
@@ -436,6 +481,8 @@ body.dir-b #apps .facts { margin-top: 0; padding-top: 24px; border-top: 1px soli
   .band { grid-template-columns: 1fr; gap: 22px; padding: 32px 0; }
   .band:nth-child(even) .btxt { order: 0; }
 }
+/* 手机上七格只写钟点，名字在 aria-label 里 */
+@media (max-width: 480px) { .rail .l { display: none; } .rail .bar { right: 6px; } }
 @media (prefers-reduced-motion: reduce) {
   .desk .wp, .desk .sun, .say > * { transition: none; }
   .af-cap.talk .wave i { animation: none; height: 10px; }
@@ -489,7 +536,7 @@ body.dir-b #apps .facts { margin-top: 0; padding-top: 24px; border-top: 1px soli
 
 <script>
 { const mq = matchMedia("(prefers-color-scheme: dark)"), set = () => { document.documentElement.dataset.theme = mq.matches ? "dark" : "light"; }; set(); mq.addEventListener("change", set); }
-const IC = { mc: "meetcaption.png", af: "askfree.png", gnw: "getnewword.png", pr: "pararead.png", tr: "typeright.png", cn: "canvasnotes.png" };
+const IC = { mc: "meetcaption.png", af: "askfree.png", gnw: "getnewword.png", pr: "pararead.png", tr: "typeright.png", cn: "canvasnotes.png", dp: "dispatch.png" };
 const GH = "https://github.com/SchaeferAnjon";
 // 下载链接先指向发布页，GitHub 接口回来后换成最新一版的文件（文件名带版本号，按结尾认）
 const URLS = {
@@ -502,6 +549,8 @@ const URLS = {
   tr: { site: "https://typeright.us-cloud.uk", gh: `${GH}/TypeRight`, mac: `${GH}/TypeRight/releases/latest` },
   // Canvas Notes 发版时另传不带版本号的 dmg（CanvasNotes-mac-arm64.dmg），先指向它，接口回来再换成带版本号的
   cn: { site: "https://canvas-note.us-cloud.uk", gh: `${GH}/canvas-notes`, arm: `${GH}/canvas-notes/releases/latest/download/CanvasNotes-mac-arm64.dmg`, intel: `${GH}/canvas-notes/releases/latest/download/CanvasNotes-mac-x64.dmg` },
+  // Dispatch 只有 Apple 芯片；安装包名带版本号（Dispatch-IDE-0.9.5-macos-apple-silicon.dmg），先指向发布页，接口回来再换成文件。官网先用 GitHub Pages，dispatch.us-cloud.uk 配好再换
+  dp: { site: "https://schaeferanjon.github.io/dispatch/", gh: `${GH}/dispatch`, mac: `${GH}/dispatch/releases/latest` },
 };
 
 const T = {
@@ -510,8 +559,8 @@ const T = {
     "nav.apps": "软件", "nav.about": "关于",
     "intro.k": "SchaeferAnjon 的软件 · 一个人做",
     "intro.h": "几个小软件，<br>各把一件事做好。",
-    "intro.p": "开会、打英文、读外文、读论文、对着屏幕想问一句时用得上。<br><b>发布了的都开源，不用注册账号。</b>",
-    "f1.b": "源码公开", "f1.t": "MeetCaption、TypeRight、GetNewWord、ParaRead、Ask Free 和 Canvas Notes 的源码都在 GitHub，GPL-3.0，可以自己编译。",
+    "intro.p": "开会、打英文、读外文、读论文、对着屏幕想问一句、让 AI 写代码时用得上。<br><b>发布了的都开源，不用注册账号。</b>",
+    "f1.b": "源码公开", "f1.t": "MeetCaption、TypeRight、GetNewWord、ParaRead、Ask Free、Canvas Notes 和 Dispatch 的源码都在 GitHub，GPL-3.0，可以自己编译。",
     "f2.b": "不用注册账号", "f2.t": "下载打开就能用，不用在这里开账号。",
     "f3.b": "一个人维护", "f3.t": "写代码、回问题、发新版的是同一个人。",
     "ab.k": "关于", "ab.h": "做这些软件的人",
@@ -527,6 +576,7 @@ const T = {
     "c.gnw": "框住外语词，马上出这句里的意思，一键记进 Anki。",
     "c.pr": "读英文论文：每段原文下面跟一段译文，问 AI 的回答带出处，还有一页速览。",
     "c.tr": "Mac 上的英文打字助手。拼错、不会说、语法不对，它在那个词旁边弹一张小卡，按 Tab 改好。",
+    "c.dp": "给 Claude Code、Codex、OpenCode 套的 Mac 窗口：右边看它一步步做，改动按轮看，新文件冒一句话讲给你听。",
     "c.cn": "本地 Markdown 加 Git 的白板笔记：白板和文档是同一个文件，旁边开网页随手剪，AI 用你自己的命令行替你整理。",
     "cn.clip": "剪成卡片", "cn.ai": "AI 正在整理这块白板", "cn.col": "冰岛自驾", "cn.c1": "出发前先定", "cn.c1t": "租四驱，带钉胎", "cn.c2": "还没订的", "cn.c2a": "机票", "cn.c2b": "蓝冰洞向导", "cn.c3": "冰河湖", "cn.q": "冰洞只在冬天开放，必须跟向导进去。",
     "t.open": "开源", "b.dl": "下载", "b.site": "官网", "note.soon": "官网筹备中", "soon": "即将推出",
@@ -536,12 +586,13 @@ const T = {
     "af.key": "你设的键", "af.listen": "在听", "af.rec": "识别中", "af.h": "问 AI",
     "list.k": "全部软件",
     "day": "周三",
-    "t.mc": "开会", "t.tr": "打英文", "t.gnw": "读外文", "t.pr": "读论文", "t.af": "想问一句", "t.cn": "收拾笔记",
+    "t.mc": "开会", "t.tr": "打英文", "t.gnw": "读外文", "t.pr": "读论文", "t.af": "想问一句", "t.dp": "做个小项目", "t.cn": "收拾笔记",
     "m.mc": "对方越说越快，<br>字幕替你接住。",
     "m.tr": "回英文卡在一个词，<br>先打中文，按 Tab 换好。",
     "m.gnw": "卡在一个词上，<br>框一下就知道。",
     "m.pr": "一段话看了三遍，<br>译文就在下面。",
     "m.af": "屏幕上蹦出个报错，<br>张嘴问一句就行。",
+    "m.dp": "交给 Agent 去写，<br>每一步你都看得懂。",
     "m.cn": "白天剪了一堆，<br>晚上摊开，让它排整齐。",
     "anki": "Anki · 今天",
     "tr.sub": " · 微信", "tr.m1": "1 · 打了中文 → 英文", "tr.m2": "2 · 拼错 → 改好", "tr.m3": "3 · 一句打完 → 查语法",
@@ -554,8 +605,8 @@ const T = {
     "nav.apps": "Apps", "nav.about": "About",
     "intro.k": "Apps by SchaeferAnjon · made by one person",
     "intro.h": "A few small apps,<br>each doing one thing well.",
-    "intro.p": "For meetings, for writing in English, for reading in another language, for reading papers, for asking about what is on your screen.<br><b>Everything released is open source, and no account is needed.</b>",
-    "f1.b": "Open source", "f1.t": "MeetCaption, TypeRight, GetNewWord, ParaRead, Ask Free and Canvas Notes are on GitHub under GPL-3.0. Build them yourself if you like.",
+    "intro.p": "For meetings, for writing in English, for reading in another language, for reading papers, for asking about what is on your screen, for letting an AI write code.<br><b>Everything released is open source, and no account is needed.</b>",
+    "f1.b": "Open source", "f1.t": "MeetCaption, TypeRight, GetNewWord, ParaRead, Ask Free, Canvas Notes and Dispatch are on GitHub under GPL-3.0. Build them yourself if you like.",
     "f2.b": "No sign-up needed", "f2.t": "Download, open, use. There is no account to create here.",
     "f3.b": "One maintainer", "f3.t": "The person who writes the code also answers the issues and ships updates.",
     "ab.k": "About", "ab.h": "Who makes these",
@@ -571,6 +622,7 @@ const T = {
     "c.gnw": "Box a foreign word to see what it means in this sentence, then send it to Anki in one click.",
     "c.pr": "Read English papers with a translation under every paragraph, AI answers with sources and a one-page glance.",
     "c.tr": "An English typing helper for the Mac. Misspelled, stuck on a word or a grammar slip: a small card pops up beside the word, and Tab fixes it.",
+    "c.dp": "A Mac window for Claude Code, Codex and OpenCode: watch each step, see changes by turn, and get a short note on every new file.",
     "c.cn": "Whiteboard notes on local Markdown and Git: a board and a document in one file, a browser beside it to clip from, and an AI that tidies up through your own command line.",
     "cn.clip": "Clip as card", "cn.ai": "AI is tidying this board", "cn.col": "Iceland trip", "cn.c1": "Decide first", "cn.c1t": "A 4x4 with studded tyres", "cn.c2": "Still to book", "cn.c2a": "Flights", "cn.c2b": "Ice cave guide", "cn.c3": "Glacier lagoon", "cn.q": "Ice caves are only open in winter. Always go with a guide.",
     "t.open": "Open source", "b.dl": "Download", "b.site": "Website", "note.soon": "Website coming", "soon": "Coming soon",
@@ -580,12 +632,13 @@ const T = {
     "af.key": "your key", "af.listen": "Listening", "af.rec": "Transcribing", "af.h": "Ask AI",
     "list.k": "All apps",
     "day": "Wed",
-    "t.mc": "A meeting", "t.tr": "Writing English", "t.gnw": "Reading abroad", "t.pr": "A paper", "t.af": "A quick question", "t.cn": "Tidying notes",
+    "t.mc": "A meeting", "t.tr": "Writing English", "t.gnw": "Reading abroad", "t.pr": "A paper", "t.af": "A quick question", "t.dp": "A side project", "t.cn": "Tidying notes",
     "m.mc": "They talk faster and faster.<br>The captions keep up for you.",
     "m.tr": "Stuck on one English word.<br>Type it in Chinese, press Tab.",
     "m.gnw": "Stuck on one word.<br>Box it and you know.",
     "m.pr": "The same paragraph, three times.<br>The translation is right below.",
     "m.af": "An error pops up on screen.<br>Just ask it out loud.",
+    "m.dp": "Let the agent write it.<br>Follow every step.",
     "m.cn": "A day of clippings.<br>Spread them out, let it tidy up.",
     "anki": "Anki · today",
     "tr.sub": " · WeChat", "tr.m1": "1 · Chinese → English", "tr.m2": "2 · Typo → fixed", "tr.m3": "3 · Sentence → checked",
@@ -602,6 +655,7 @@ const APPS = [
   { id: "pr", name: "ParaRead", plats: ["mac"] },
   { id: "tr", name: "TypeRight", plats: ["mac"] },
   { id: "cn", name: "Canvas Notes", plats: ["mac"] },
+  { id: "dp", name: "Dispatch", plats: ["mac"] },
 ];
 
 /* 语言：#lang= > 上次选的 > 浏览器语言 */
@@ -621,8 +675,8 @@ function stripHTML(cur) {
 
 /* 新主页：一天里的几个时刻，按钟点排 */
 const DIR = "a";
-const ORDER = ["mc", "tr", "gnw", "pr", "af", "cn"];
-const TIME = { mc: "09:30", tr: "10:15", gnw: "11:05", pr: "14:20", af: "16:40", cn: "21:30" };
+const ORDER = ["mc", "tr", "gnw", "pr", "af", "dp", "cn"];
+const TIME = { mc: "09:30", tr: "10:15", gnw: "11:05", pr: "14:20", af: "16:40", dp: "19:40", cn: "21:30" };
 const app = (id) => APPS.find(a => a.id === id);
 function tagsHTML(a) {
   return a.plats.map(p => p === "mac" ? `<li>${svg("apple")}Mac</li>` : `<li>${svg("win")}Windows</li>`).join("") + `<li>${svg("code", "ico s")}${tr("t.open")} GPL-3.0</li>`;
@@ -663,7 +717,7 @@ function dayHTML() {
       </div>
       <div class="dock" id="dock">${ORDER.map(id => `<button data-go="${id}" aria-label="${app(id).name}"><img src="${IC[id]}" alt=""><span class="tip">${app(id).name}</span></button>`).join("")}</div>
     </div>
-    <div class="rail" id="rail" role="tablist">${ORDER.map(id => `<button role="tab" data-go="${id}"><span class="bar"><i></i></span><span class="t">${TIME[id]}</span><span class="l">${tr("t." + id)}</span></button>`).join("")}</div>
+    <div class="rail" id="rail" role="tablist">${ORDER.map(id => `<button role="tab" data-go="${id}" aria-label="${TIME[id]} ${tr("t." + id)}"><span class="bar"><i></i></span><span class="t">${TIME[id]}</span><span class="l">${tr("t." + id)}</span></button>`).join("")}</div>
   </section>`;
 }
 function bandsHTML() {
@@ -1006,8 +1060,55 @@ async function demoCN(gen) {
     await W(3200);
   }
 }
+/* Dispatch：右边 Now 一步步走，左边会话行前方块在落；冒一张「新文件」小卡；做完亮「Walk me through」。和 Dispatch 官网首屏同一段 */
+const DP_STEPS = ["Find where the colours live", "Put both themes in one file", "Add the switch to Settings", "Remember the pick and test it"];
+const DP_NOW = ["reading src/settings.tsx", "writing src/theme.ts", "adding the switch to Settings", "running npm test"];
+const DP_COL = ["#8a857c", "#c28a12", "#2e8b57", "#1d5fd1", "#d1d1cd", "#c9683f", "#2f6f73", "#6e56cf", "#d1d1cd", "#d1d1cd"];
+// 应用图标的十块：底行先落，再中行，最后顶行，一块隔 220ms（Dispatch「方案三」落块，小图标上的近似）
+function dpIcon() {
+  const X = [0, 3, 6, 9], B = [[0, 0, 2.2], [1, 0, 2.2], [2, 0, 2.2], [3, 0, 2.2], [0, 3, 1.4], [1, 3, 1.4], [2, 3, 1.4], [3, 3, 1.4], [0, 5.2, 1.4], [1, 5.2, 1.4]];
+  const order = [8, 9, 4, 5, 6, 7, 0, 1, 2, 3];
+  return `<span class="dp-ic">${B.map(([c, y, h], i) => `<b style="left:${X[c] * .95}px;top:${y + 1.5}px;height:${h}px;background:${DP_COL[i]};animation-delay:${order.indexOf(i) * .22}s"></b>`).join("")}</span>`;
+}
+const dpLine = (d) => `<svg class="o" viewBox="0 0 16 16">${d}</svg>`;
+async function demoDP(gen) {
+  const st = document.getElementById("st-dp"); if (!st) return;
+  st.innerHTML = `<div class="dp-tb"><i></i><i></i><i></i><span class="m">reading-app › <b>Add a dark mode switch</b></span></div>
+    <div class="dp-body"><div class="dp-side">
+      <div class="dp-row">${dpLine('<path d="M4 11V7a4 4 0 0 1 8 0v4l1 1.5H3z"/>')}<span class="t">Waiting for you</span><span class="n">1</span></div>
+      <div class="dp-row">${dpLine('<path d="M2 4.5a1 1 0 0 1 1-1h3l1.5 1.5H13a1 1 0 0 1 1 1v6.5a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>')}<span class="t">reading-app</span></div>
+      <div class="dp-row in sel" id="dp-me">${dpIcon()}<span class="t">Add a dark mode switch</span></div>
+      <div class="dp-row in"><span style="width:11px"></span><span class="t">Fix the export button</span></div>
+      <div class="dp-row">${dpLine('<path d="M2 4.5a1 1 0 0 1 1-1h3l1.5 1.5H13a1 1 0 0 1 1 1v6.5a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>')}<span class="t">website</span></div>
+      <div class="dp-row in">${dpIcon()}<span class="t">Write the about page</span></div>
+    </div><div class="dp-now">
+      <div class="dp-st"></div><h4></h4><div class="dp-rn"></div>
+      <div class="dp-steps">${DP_STEPS.map(s => `<div class="dp-step"><span class="dp-mk"></span>${s}</div>`).join("")}</div>
+      <div class="dp-card"><div class="h">${dpLine('<path d="M4 1.8h5l3 3v9.4H4z"/><path d="M8 7.5v4M6 9.5h4"/>')}<b>theme.ts</b><small>New file</small></div><p>Keeps the light and dark colours in one place.</p><div class="tl"><i></i></div></div>
+      <div class="dp-pill">${dpLine('<circle cx="8" cy="8" r="6.2"/><path d="M10.6 5.4L9.2 9.2 5.4 10.6 6.8 6.8z"/>')}<b>Walk me through</b><small>3 stops</small></div>
+    </div></div>`;
+  const W = mkRunner(st, gen);
+  const stl = st.querySelector(".dp-st"), h4 = st.querySelector("h4"), rn = st.querySelector(".dp-rn"), steps = [...st.querySelectorAll(".dp-step")], card = st.querySelector(".dp-card"), pill = st.querySelector(".dp-pill"), me = st.querySelector("#dp-me");
+  const set = (k) => {
+    const done = k >= DP_STEPS.length;
+    steps.forEach((s, i) => { s.className = "dp-step" + (done || i < k ? " dn" : i === k ? " cur" : ""); });
+    stl.innerHTML = done ? `<span class="dp-mk done"></span>Done · just now` : `${dpIcon()}Working · step ${k + 1} of 4 · ${k + 1} min`;
+    h4.textContent = done ? "Settings has a dark mode switch" : "Adding a dark mode switch";
+    rn.textContent = done ? "" : "Right now: " + DP_NOW[k];
+    me.firstElementChild.outerHTML = done ? `<span class="dp-mk done"></span>` : dpIcon();
+  };
+  if (REDUCED) { set(1); card.classList.add("on"); return; }
+  for (;;) {
+    pill.classList.remove("on"); set(0); await W(1600);
+    set(1); await W(700); card.classList.add("on"); await W(2600);
+    set(2); await W(2000); card.classList.remove("on"); await W(400);
+    set(3); await W(1800);
+    set(4); await W(500); pill.classList.add("on"); await W(3200);
+  }
+}
+
 /* 方向 A：一次只演当前这一刻；没人点过就每 11 秒往后走一格，鼠标停在桌面上时不走 */
-const DEMO = { mc: demoMC, af: demoAF, gnw: demoGNW, pr: demoPR, tr: demoTR, cn: demoCN };
+const DEMO = { mc: demoMC, af: demoAF, gnw: demoGNW, pr: demoPR, tr: demoTR, dp: demoDP, cn: demoCN };
 const STAY = 11000;
 let CUR = Math.max(0, ORDER.indexOf((location.hash.match(/at=(\w+)/) || [])[1])), PICKED = false, HOVER = false;
 function show(i, byUser) {
@@ -1043,6 +1144,7 @@ latest("af", "askfree", { mac: /^AskFree-[\d.]+\.dmg$/ });
 latest("pr", "pararead", { mac: /^ParaRead-[\d.]+-mac-arm64\.dmg$/ });
 latest("tr", "TypeRight", { mac: /^TypeRight-[\d.]+-Universal\.dmg$/ });
 latest("cn", "canvas-notes", { arm: /^CanvasNotes-[\d.]+-mac-arm64\.dmg$/, intel: /^CanvasNotes-[\d.]+-mac-x64\.dmg$/ });
+latest("dp", "dispatch", { mac: /^Dispatch-IDE-[\d.]+-macos-apple-silicon\.dmg$/ });
 </script>
 </body>
 </html>
