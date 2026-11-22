@@ -94,7 +94,7 @@ img { display: block; }
 .pill .plats { display: flex; gap: 4px; opacity: .8; }
 .pill .plats .ico { width: 12px; height: 12px; }
 .cta .soon { display: inline-flex; align-items: center; height: 34px; padding: 0 15px; border-radius: 999px; border: 1px dashed var(--line-2); font-size: 13.5px; color: var(--text-3); }
-.pend { display: inline-flex; align-items: center; height: 19px; padding: 0 7px; margin-left: 8px; border-radius: 5px; border: 1px dashed var(--line-2); font-size: 11.5px; font-weight: 400; color: var(--text-3); vertical-align: 2px; white-space: nowrap; }
+.pend { display: inline-flex; align-items: center; height: 20px; padding: 0 7px; margin-left: 8px; border-radius: 5px; border: 1px dashed var(--line-2); font-size: 12px; font-weight: 400; color: var(--text-3); vertical-align: 2px; white-space: nowrap; }
 .cta .note { margin-left: auto; font-size: 12px; color: var(--text-3); white-space: nowrap; }
 .dlpop { position: absolute; left: 0; bottom: 44px; z-index: 5; display: none; width: 330px; padding: 12px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line-2); box-shadow: var(--pop-shadow); }
 .dlpop.on { display: block; }
@@ -360,28 +360,28 @@ img { display: block; }
 :root[data-theme="dark"] .bk-stage { --bk-paper: #1d1b19; --bk-card: #262320; --bk-line: #36322d; }
 .bk-strip { position: absolute; left: 0; right: 0; top: 0; height: 24px; display: flex; align-items: flex-end; gap: 2px; padding: 0 8px; background: var(--surface-2); border-bottom: 1px solid var(--line); overflow: hidden; }
 .bk-strip i { flex: none; width: 30px; height: 18px; border-radius: 5px 5px 0 0; background: var(--surface-3); display: grid; place-items: center; transition: width .3s, opacity .3s, margin .3s; }
-.bk-strip i b { width: 8px; height: 8px; border-radius: 2px; }
 .bk-strip i.on { background: var(--bk-paper); }
 .bk-strip i.gone { width: 0; opacity: 0; margin-left: -2px; }
-.bk-quick { position: absolute; left: 14px; right: 14px; top: 34px; display: flex; align-items: center; gap: 7px; font-size: 9.5px; color: var(--text-3); }
+.bk-quick { position: absolute; left: 14px; right: 14px; top: 33px; display: flex; align-items: center; gap: 7px; font-size: 10.5px; color: var(--text-3); }
 .bk-quick .lb { margin-right: 3px; }
-.bk-ql { width: 20px; height: 20px; border-radius: 5px; display: grid; place-items: center; color: #fff; font: 700 10px/1 var(--sans); transition: transform .3s, opacity .3s; }
+.bk-ql { width: 22px; height: 22px; border-radius: 5px; display: grid; place-items: center; color: #fff; font: 700 10px/1 var(--sans); transition: transform .3s, opacity .3s; }
 .bk-ql.new { transform: scale(.2); opacity: 0; }
 .bk-ql.bump { transform: scale(1.18); }
-.bk-h { position: absolute; left: 14px; right: 14px; top: 64px; display: flex; align-items: center; gap: 8px; font: italic 12px var(--serif); color: var(--text-2); }
+.bk-h { position: absolute; left: 14px; right: 14px; top: 63px; display: flex; align-items: center; gap: 8px; font: italic 12px var(--serif); color: var(--text-2); }
+.bk-h:lang(zh) { font-style: normal; }
 .bk-h::after { content: ""; flex: 1; height: 1px; background: var(--bk-line); }
-.bk-cards { position: absolute; left: 14px; right: 14px; top: 84px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.bk-cards { position: absolute; left: 14px; right: 14px; top: 82px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 .bk-card { padding: 7px 8px 8px; border-radius: 8px; background: var(--bk-card); border: 1px solid var(--bk-line); box-shadow: 0 1px 2px rgba(26,22,19,.05); opacity: 0; transform: translateY(6px); transition: opacity .35s, transform .35s; }
 .bk-card.on { opacity: 1; transform: none; }
 .bk-card.out { opacity: 0; transform: scale(.94); }
-.bk-card .t { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; color: var(--text); white-space: nowrap; }
-.bk-card .t small { font-size: 9px; font-weight: 400; color: var(--bk); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.bk-row { display: flex; align-items: center; gap: 5px; height: 17px; margin-top: 2px; font-size: 9.5px; color: var(--text-2); }
-.bk-row b { flex: none; width: 8px; height: 8px; border-radius: 2px; }
+.bk-card .t { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--text); white-space: nowrap; }
+.bk-card .t small { display: inline-flex; align-items: center; height: 16px; padding: 0 5px; border-radius: 4px; background: color-mix(in srgb, var(--bk) 12%, transparent); font-size: 10px; font-weight: 400; color: var(--bk); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bk-row { display: flex; align-items: center; gap: 6px; height: 20px; margin-top: 1px; font-size: 11px; color: var(--text-2); }
+.bk-row b, .bk-strip i b { flex: none; width: 11px; height: 11px; border-radius: 3px; display: grid; place-items: center; color: #fff; font: 700 7px/1 var(--sans); }
 .bk-row span { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .bk-row svg { flex: none; width: 10px; height: 10px; fill: none; stroke: var(--text-3); stroke-width: 1.4; stroke-linejoin: round; transition: fill .2s, stroke .2s; }
 .bk-row svg.on { fill: var(--bk); stroke: var(--bk); }
-.bk-x { display: inline-flex; align-items: center; height: 17px; margin-top: 5px; padding: 0 7px; border-radius: 4px; border: 1px solid color-mix(in srgb, var(--bk) 45%, transparent); color: var(--bk); font-size: 9px; white-space: nowrap; transition: background-color .15s; }
+.bk-x { display: inline-flex; align-items: center; height: 19px; margin-top: 5px; padding: 0 7px; border-radius: 4px; border: 1px solid color-mix(in srgb, var(--bk) 45%, transparent); color: var(--bk); font-size: 10px; white-space: nowrap; transition: background-color .15s; }
 .bk-x.down { background: color-mix(in srgb, var(--bk) 14%, transparent); }
 :root[data-theme="dark"] .bk-ql, :root[data-theme="dark"] .bk-row b, :root[data-theme="dark"] .bk-strip i b { box-shadow: 0 0 0 1px rgba(255,255,255,.22); }
 .bk-ptr { position: absolute; left: 0; top: 0; width: 13px; height: 18px; z-index: 4; transition: transform .7s cubic-bezier(.3,.7,.2,1); filter: drop-shadow(0 1px 1px rgba(0,0,0,.35)); }
@@ -409,11 +409,11 @@ img { display: block; }
 .al-card .cb.sent { background: none; width: auto; }
 .al-card .cb.sent::after { display: none; }
 .al-card .q { font-size: 10.5px; font-weight: 600; color: var(--text); line-height: 1.35; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.al-card .a { font-size: 9.5px; color: var(--text-2); line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.al-card .a { font-size: 10.5px; color: var(--text-2); line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .al-card .in { display: none; font-size: 9px; color: var(--text-2); align-items: center; gap: 4px; margin-top: 1px; }
 .al-card .in::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--ok); }
 .al-card.sent .in { display: flex; }
-.al-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 30px; display: flex; align-items: center; gap: 8px; padding: 0 10px; border-top: 1px solid var(--line); background: var(--surface); font-size: 9.5px; color: var(--text-2); opacity: 0; transition: opacity .3s; white-space: nowrap; }
+.al-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 30px; display: flex; align-items: center; gap: 8px; padding: 0 10px; border-top: 1px solid var(--line); background: var(--surface); font-size: 10.5px; color: var(--text-2); opacity: 0; transition: opacity .3s; white-space: nowrap; }
 .al-bar.on { opacity: 1; }
 .al-bar .sp { flex: 1; }
 .al-bar .go { height: 19px; padding: 0 9px; border-radius: 5px; background: var(--btn); color: var(--btn-text); font-weight: 500; display: flex; align-items: center; transition: transform .1s, opacity .1s; }
@@ -560,7 +560,7 @@ body.dir-b #apps .facts { margin-top: 0; padding-top: 24px; border-top: 1px soli
   .band:nth-child(even) .btxt { order: 0; }
 }
 /* 手机上七格只写钟点，名字在 aria-label 里 */
-@media (max-width: 480px) { .rail .l { display: none; } .rail .bar { right: 6px; } .rail button { padding-left: 0; padding-right: 0; } .rail .t { font-size: 10px; letter-spacing: -.02em; } .brand .minis img + img { margin-left: -9px; } .bk-card .t small { display: none; } .dock { gap: 6px; padding: 6px 7px; } .dock img { width: 29px; height: 29px; border-radius: 7px; } .dock button .tip { bottom: 38px; } }
+@media (max-width: 480px) { .rail .l { display: none; } .rail .bar { right: 6px; } .rail button { padding-left: 0; padding-right: 0; } .rail .t { font-size: 10px; } .bk-row { font-size: 9.5px; } .al-bar span:nth-child(3) { display: none; } .brand .minis img + img { margin-left: -9px; } .bk-card .t small { display: none; } .dock { gap: 6px; padding: 6px 7px; } .dock img { width: 29px; height: 29px; border-radius: 7px; } .dock button .tip { bottom: 38px; } }
 @media (prefers-reduced-motion: reduce) {
   .desk .wp, .desk .sun, .say > * { transition: none; }
   .af-cap.talk .wave i { animation: none; height: 10px; }
@@ -665,7 +665,7 @@ const T = {
     "c.al": "把 Claude Code 会话、PDF 和网页交给 DeepSeek，挑出值得记的做成问答卡；你勾好，一键送进 Anki。",
     "bk.quick": "快捷书签", "bk.open": "打开的标签", "bk.n": "个标签", "bk.x": "全部关掉",
     "al.busy": "DeepSeek 正在挑知识点", "al.done": "挑出 3 张卡", "al.sel": "已选 3 / 3 张", "al.deck": "牌组 知识", "al.go": "送进 Anki", "al.toast": "加了 3 张到「知识」", "al.in": "已在 Anki", "al.sent": "已送进",
-    "pend": "待改名", "b.src": "源码", "soon.dl": "安装包筹备中",
+    "pend": "待改名", "b.src": "源码",
     "cn.clip": "剪成卡片", "cn.ai": "AI 正在整理这块白板", "cn.col": "冰岛自驾", "cn.c1": "出发前先定", "cn.c1t": "租四驱，带钉胎", "cn.c2": "还没订的", "cn.c2a": "机票", "cn.c2b": "蓝冰洞向导", "cn.c3": "冰河湖", "cn.q": "冰洞只在冬天开放，必须跟向导进去。",
     "t.open": "开源", "b.dl": "下载", "b.site": "官网", "note.soon": "官网筹备中", "soon": "即将推出",
     "dl.t": "选你的电脑", "dl.win": "Windows", "dl.arm": "Mac", "dl.intel": "Mac", "dl.winm": "Windows 10 / 11", "dl.armm": "Apple 芯片", "dl.intelm": "Intel 芯片",
@@ -718,7 +718,7 @@ const T = {
     "c.al": "Hand Claude Code sessions, PDFs and web pages to DeepSeek, which picks out what is worth remembering as Q&A cards. Tick the ones you want and send them to Anki.",
     "bk.quick": "Quick links", "bk.open": "Open tabs", "bk.n": "tabs", "bk.x": "Close all",
     "al.busy": "DeepSeek is picking what to keep", "al.done": "3 cards picked", "al.sel": "3 of 3 selected", "al.deck": "Deck: Knowledge", "al.go": "Send to Anki", "al.toast": "Added 3 cards to Knowledge", "al.in": "In Anki", "al.sent": "Sent to",
-    "pend": "name pending", "b.src": "Source", "soon.dl": "Installer coming",
+    "pend": "name pending", "b.src": "Source",
     "cn.clip": "Clip as card", "cn.ai": "AI is tidying this board", "cn.col": "Iceland trip", "cn.c1": "Decide first", "cn.c1t": "A 4x4 with studded tyres", "cn.c2": "Still to book", "cn.c2a": "Flights", "cn.c2b": "Ice cave guide", "cn.c3": "Glacier lagoon", "cn.q": "Ice caves are only open in winter. Always go with a guide.",
     "t.open": "Open source", "b.dl": "Download", "b.site": "Website", "note.soon": "Website coming", "soon": "Coming soon",
     "dl.t": "Pick your computer", "dl.win": "Windows", "dl.arm": "Mac", "dl.intel": "Mac", "dl.winm": "Windows 10 / 11", "dl.armm": "Apple silicon", "dl.intelm": "Intel chip",
@@ -727,7 +727,7 @@ const T = {
     "af.key": "your key", "af.listen": "Listening", "af.rec": "Transcribing", "af.h": "Ask AI",
     "list.k": "All apps",
     "day": "Wed",
-    "t.mc": "A meeting", "t.tr": "Writing English", "t.gnw": "Reading abroad", "t.pr": "A paper", "t.af": "A quick question", "t.dp": "A side project", "t.cn": "Tidying notes", "t.bk": "Opening the browser", "t.al": "Keeping what you learned",
+    "t.mc": "A meeting", "t.tr": "Writing English", "t.gnw": "Reading abroad", "t.pr": "A paper", "t.af": "A quick question", "t.dp": "A side project", "t.cn": "Tidying notes", "t.bk": "Opening tabs", "t.al": "Making cards",
     "m.mc": "They talk faster and faster.<br>The captions keep up for you.",
     "m.tr": "Stuck on one English word.<br>Type it in Chinese, press Tab.",
     "m.gnw": "Stuck on one word.<br>Box it and you know.",
@@ -795,7 +795,7 @@ function ctaHTML(a) {
          <a href="${u.arm}" data-f="arm">${svg("apple")}${tr("dl.arm")}<small>${tr("dl.armm")}</small></a>
          <a href="${u.intel}" data-f="intel">${svg("apple")}${tr("dl.intel")}<small>${tr("dl.intelm")}</small></a></div></div>
        <a class="pill" href="${u.site}" target="_blank" rel="noopener">${svg("site", "ico s")}${tr("b.site")}</a>`;
-  const dl = u.mac ? `<a class="pill dark" href="${u.mac}" data-f="mac">${svg("dl", "ico s")}${tr("b.dl")}</a>` : `<span class="soon">${tr("soon.dl")}</span>`;
+  const dl = u.mac ? `<a class="pill dark" href="${u.mac}" data-f="mac">${svg("dl", "ico s")}${tr("b.dl")}</a>` : `<span class="soon">${tr("soon")}</span>`;
   const second = u.site ? `<a class="pill" href="${u.site}" target="_blank" rel="noopener">${svg("site", "ico s")}${tr("b.site")}</a>`
     : `<a class="pill" href="${u.gh}" target="_blank" rel="noopener">${svg("code", "ico s")}${tr("b.src")}</a>`;
   return `${dl}
@@ -1214,22 +1214,22 @@ async function demoDP(gen) {
 
 /* BookmarkKeeper：上面一排标签，新标签页把它们按网站摆成卡片；指针关掉一组（上面的标签跟着少），再给一个标签加星，它进快捷书签 */
 const BK_TABS = {
-  zh: [["github.com", "#24292f", ["Pull requests · reading-app", "列表滚动时卡顿 · Issue #128", "swiftui · GitHub Topics"]],
-       ["youtube.com", "#e62117", ["SwiftUI 布局入门", "WWDC：Swift 有什么新东西", "写代码时听的歌"]],
-       ["wikipedia.org", "#555", ["间隔重复", "艾宾浩斯遗忘曲线"]]],
-  en: [["github.com", "#24292f", ["Pull requests · reading-app", "List scrolling stutters · #128", "swiftui · GitHub Topics"]],
-       ["youtube.com", "#e62117", ["SwiftUI layout basics", "WWDC: What’s new in Swift", "Lofi beats to code to"]],
-       ["wikipedia.org", "#555", ["Spaced repetition", "Forgetting curve"]]],
+  zh: [["GitHub", "#24292f", "G", ["Pull requests · reading-app", "列表滚动时卡顿 · Issue #128", "swiftui · GitHub Topics"]],
+       ["YouTube", "#e62117", "▶", ["SwiftUI 布局入门", "WWDC：Swift 有什么新东西", "写代码时听的歌"]],
+       ["Wikipedia", "#555", "W", ["间隔重复", "艾宾浩斯遗忘曲线"]]],
+  en: [["GitHub", "#24292f", "G", ["Pull requests · reading-app", "List scrolling stutters · #128", "swiftui · GitHub Topics"]],
+       ["YouTube", "#e62117", "▶", ["SwiftUI layout basics", "WWDC: What’s new in Swift", "Lofi beats to code to"]],
+       ["Wikipedia", "#555", "W", ["Spaced repetition", "Forgetting curve"]]],
 };
 const BK_QUICK = [["#24292f", "G"], ["#e62117", "▶"], ["#1b1b1b", "M"], ["#ff6600", "Y"]];
 const bkStar = `<svg viewBox="0 0 16 16"><path d="M8 1.8l1.8 3.9 4.2.5-3.1 2.9.8 4.2L8 11.2l-3.7 2.1.8-4.2L2 6.2l4.2-.5z"/></svg>`;
 async function demoBK(gen) {
   const st = document.getElementById("st-bk"); if (!st) return;
   const groups = BK_TABS[LANG];
-  st.innerHTML = `<div class="bk-strip">${groups.flatMap(([, c, ts]) => ts.map(() => `<i data-c="${c}"><b style="background:${c}"></b></i>`)).join("")}<i class="on"><b style="background:var(--bk)"></b></i></div>
+  st.innerHTML = `<div class="bk-strip">${groups.flatMap(([, c, l, ts]) => ts.map(() => `<i data-c="${c}"><b style="background:${c}">${l}</b></i>`)).join("")}<i class="on"><b style="background:var(--bk)"></b></i></div>
     <div class="bk-quick"><span class="lb">${tr("bk.quick")}</span>${BK_QUICK.map(([c, t]) => `<span class="bk-ql" style="background:${c}">${t}</span>`).join("")}<span class="bk-ql new" style="background:#555">W</span></div>
     <div class="bk-h">${tr("bk.open")}</div>
-    <div class="bk-cards">${groups.map(([d, c, ts]) => `<div class="bk-card" data-d="${d}"><div class="t">${d}<small>${ts.length} ${tr("bk.n")}</small></div>${ts.map(t => `<div class="bk-row"><b style="background:${c}"></b><span>${t}</span>${bkStar}</div>`).join("")}<span class="bk-x">${tr("bk.x")}</span></div>`).join("")}</div>
+    <div class="bk-cards">${groups.map(([d, c, l, ts]) => `<div class="bk-card" data-d="${d}"><div class="t">${d}<small>${ts.length} ${tr("bk.n")}</small></div>${ts.map(t => `<div class="bk-row"><b style="background:${c}">${l}</b><span>${t}</span>${bkStar}</div>`).join("")}<span class="bk-x">${tr("bk.x")}</span></div>`).join("")}</div>
     <svg class="bk-ptr" viewBox="0 0 15 21"><path d="M1 1v16.5l4.2-4 2.9 6.6 2.6-1.1-2.8-6.5H14z" fill="#111" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/></svg>`;
   const W = mkRunner(st, gen);
   const cards = [...st.querySelectorAll(".bk-card")], ptr = st.querySelector(".bk-ptr"), newQL = st.querySelector(".bk-ql.new");
@@ -1252,7 +1252,7 @@ async function demoBK(gen) {
     const star = cards[2].querySelector(".bk-row svg");
     point(star, .5, .5); await W(800);
     star.classList.add("on"); newQL.classList.remove("new"); newQL.classList.add("bump"); await W(300); newQL.classList.remove("bump");
-    await W(2800);
+    await W(5400);
     // 重来
     cards.forEach(c => { c.classList.remove("on", "out"); c.style.display = ""; }); star.classList.remove("on"); newQL.classList.add("new");
     st.querySelectorAll(".bk-strip i.gone").forEach(i => i.classList.remove("gone"));
